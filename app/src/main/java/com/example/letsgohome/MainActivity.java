@@ -45,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void mOnClick(View v){
 
-        switch( v.getId() ){
+        switch(v.getId()){
             case R.id.button:
-
                 new Thread(new Runnable() {
 
                     @Override
