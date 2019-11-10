@@ -11,6 +11,23 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
+array busan
+array chungbuk
+array chungnam
+array daegu
+array daejeon
+array gangwon
+array gwangju
+array gyeongbuk
+array gyeonggi
+array gyeongnam
+array incheon
+array jeonbuk
+array jeonnam
+array region
+array sejong
+array seoul
+array ulsan
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -644,6 +661,10 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font nanumbarungothic
+font nanumbarungothicbold
+font nanumbarungothiclight
+font nanumbarungothicultralight
 id ALT
 id CTRL
 id FUNCTION
@@ -710,6 +731,8 @@ id gone
 id group_divider
 id groups
 id home
+id home1
+id home2
 id homeAsUp
 id icon
 id icon_group
@@ -726,6 +749,7 @@ id list_item
 id message
 id middle
 id multiply
+id name
 id never
 id none
 id normal
@@ -735,6 +759,7 @@ id notification_main_column_container
 id packed
 id parent
 id parentPanel
+id password
 id percent
 id progress_circular
 id progress_horizontal
@@ -826,6 +851,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_ktxinformation
 layout activity_main
 layout notification_action
 layout notification_action_tombstone
