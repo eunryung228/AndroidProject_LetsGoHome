@@ -83,11 +83,33 @@
             android:layout_height="30dp"
             android:layout_weight="0.53"/>
         <Button
+            android:id="@+id/addItem"
             android:layout_gravity="center"
             android:layout_margin="2dp"
             android:background="#FFD3B0"
             android:layout_width="60dp"
             android:layout_height="30dp"
+            android:onClick="mOnClick"
             android:text="추가"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_column="0"
+        android:layout_columnSpan="3"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/stations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_margin="15dp"
+            android:choiceMode="singleChoice"
+            android:orientation="vertical"
+            android:weightSum="1" />
     </LinearLayout>
 </GridLayout>

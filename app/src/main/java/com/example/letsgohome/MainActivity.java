@@ -2,45 +2,39 @@ package com.example.letsgohome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Debug;
-import android.renderscript.ScriptGroup;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
+import com.example.letsgohome.MakeDB.DBHelper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
+    private DBHelper dbHelper;
+    SQLiteDatabase db=null;
     ArrayAdapter<CharSequence> adhome1, adhome2;
     Spinner homeSpin2;
+
+    List<String> list=new ArrayList<>();
+    int myStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbHelper=new DBHelper(this);
+        db=dbHelper.getWritableDatabase();
 
         final Spinner homeSpin1=(Spinner) findViewById(R.id.home1);
         homeSpin2=(Spinner) findViewById(R.id.home2);
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
                         {
-                            // 디비 추가하고 난 뒤에 이 함수 추가하기
+                            myStation=p;
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parent)
@@ -81,7 +75,6 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
                         {
-                            // 디비 추가하고 난 뒤에 이 함수 추가하기
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parent)
@@ -97,4 +90,38 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+    public void mOnClick(View v)
+    {
+        ArrayAdapter<String> adapter=new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, list);
+        ListView listView=(ListView) findViewById(R.id.stations);
+        listView.setAdapter(adapter);
+
+        switch (v.getId())
+        {
+            case R.id.addItem:
+                list.add(homeSpin2.getItemAtPosition(myStation).toString());
+                adapter.notifyDataSetChanged();
+
+
+        }
+
+    }
+
+    /*
+    db 정보 읽어오기
+    public void mOnClick(View v)
+    {
+        TextView result=(TextView) findViewById(R.id.result);
+        TextView result2=(TextView) findViewById(R.id.result2);
+
+        Cursor cursor=db.rawQuery("SELECT * FROM STATIONS", null);
+
+        while(cursor.moveToNext())
+        {
+            result.setText(cursor.getString(0));
+            result2.setText(cursor.getString(1));
+        }
+    }
+    */
 }
