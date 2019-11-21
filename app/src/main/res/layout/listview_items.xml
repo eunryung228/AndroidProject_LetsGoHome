@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/regionName"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:fontFamily="@font/nanumbarungothic"
+        android:text="서울특별시"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/stationName"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:fontFamily="@font/nanumbarungothic"
+        android:text="서빙고"
+        android:textSize="12dp" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_margin="4dp"
+        android:background="#FAE0D4"
+        android:fontFamily="@font/nanumbarungothic"
+        android:text="삭제"
+        android:textSize="10dp" />
+
+</LinearLayout>

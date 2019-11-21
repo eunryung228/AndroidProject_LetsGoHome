@@ -1200,6 +1200,10 @@
         "source": "C:\\Users\\sayqu\\.gradle\\caches\\transforms-2\\files-2.1\\f6a183f8595ca34f3d5cc99d1f8bc322\\appcompat-1.0.2\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
+        "merged": "D:\\Android\\Project\\app\\build\\intermediates\\res\\merged\\debug\\layout_listview_items.xml.flat",
+        "source": "D:\\Android\\Project\\app\\src\\main\\res\\layout\\listview_items.xml"
+    },
+    {
         "merged": "D:\\Android\\Project\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
         "source": "C:\\Users\\sayqu\\.gradle\\caches\\transforms-2\\files-2.1\\72b2b92ec4ab73ff21fb9bc348de3b22\\core-1.0.1\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
     },

@@ -704,6 +704,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id addHometownItem
 id addItem
 id alertTitle
 id all
@@ -713,6 +714,8 @@ id barrier
 id beginning
 id blocking
 id bottom
+id btnDelete
+id btnEnd
 id button
 id buttonPanel
 id center
@@ -748,6 +751,9 @@ id home
 id home1
 id home2
 id homeAsUp
+id hometown1
+id hometown2
+id hometownStations
 id icon
 id icon_group
 id ifRoom
@@ -764,6 +770,7 @@ id list_item
 id message
 id middle
 id multiply
+id myStations
 id name
 id never
 id none
@@ -779,6 +786,7 @@ id percent
 id progress_circular
 id progress_horizontal
 id radio
+id regionName
 id result
 id right
 id right_icon
@@ -811,7 +819,7 @@ id src_in
 id src_over
 id standard
 id start
-id stations
+id stationName
 id submenuarrow
 id submit_area
 id tabMode
@@ -869,6 +877,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_ktxinformation
 layout activity_main
+layout listview_items
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big
