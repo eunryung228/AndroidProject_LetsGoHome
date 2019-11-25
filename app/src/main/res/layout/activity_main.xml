@@ -13,16 +13,17 @@
         android:layout_column="0"
         android:layout_columnSpan="3"
         android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/nanumbarungothicbold"
+        android:fontFamily="@font/maplestorybold"
         android:textSize="24dp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
         android:text="회원 정보 입력" />
 
     <TextView
         android:layout_column="0"
         android:layout_gravity="left"
         android:layout_marginLeft="20dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
         android:layout_marginBottom="15dp"
         android:text="닉네임:  " />
@@ -30,6 +31,8 @@
     <EditText
         android:id="@+id/name"
         android:layout_gravity="center_horizontal"
+        android:textSize="12dp"
+        android:fontFamily="@font/maplestorylight"
         android:ems="10" />
 
     <TextView
@@ -37,7 +40,7 @@
         android:layout_gravity="left"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
         android:text="비밀번호:  " />
     <EditText
@@ -45,6 +48,8 @@
         android:ems="10"
         android:maxLength="4"
         android:hint="숫자 4자리"
+        android:textSize="12dp"
+        android:fontFamily="@font/maplestorylight"
         android:layout_gravity="center_horizontal"
         android:inputType="numberPassword"/>
 
@@ -54,7 +59,7 @@
         android:layout_gravity="left"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
         android:text="본가 역 선택" />
 
@@ -69,6 +74,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:weightSum="1"
+        android:fontFamily="@font/maplestorylight"
         android:orientation="horizontal">
 
         <Spinner
@@ -77,6 +83,8 @@
             android:layout_margin="2dp"
             android:layout_width="210dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
+
             android:layout_weight="0.53"/>
         <Spinner
             android:id="@+id/home2"
@@ -84,6 +92,7 @@
             android:layout_margin="2dp"
             android:layout_width="210dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
             android:layout_weight="0.53"/>
         <Button
             android:id="@+id/addItem"
@@ -92,6 +101,7 @@
             android:background="#FFD3B0"
             android:layout_width="60dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
             android:onClick="mOnClick"
             android:text="추가"/>
 
@@ -102,7 +112,7 @@
         android:layout_columnSpan="3"
         android:layout_gravity="center_horizontal"
         android:layout_width="320dp"
-        android:layout_height="10dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ListView
@@ -110,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:choiceMode="singleChoice"
             android:orientation="vertical"/>
     </LinearLayout>
@@ -121,7 +131,7 @@
         android:layout_gravity="left"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
         android:text="고향 역 선택" />
 
@@ -144,6 +154,7 @@
             android:layout_margin="2dp"
             android:layout_width="210dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
             android:layout_weight="0.53"/>
         <Spinner
             android:id="@+id/hometown2"
@@ -151,6 +162,7 @@
             android:layout_margin="2dp"
             android:layout_width="210dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
             android:layout_weight="0.53"/>
         <Button
             android:id="@+id/addHometownItem"
@@ -159,6 +171,7 @@
             android:background="#FFD3B0"
             android:layout_width="60dp"
             android:layout_height="30dp"
+            android:fontFamily="@font/maplestorylight"
             android:onClick="mOnClick"
             android:text="추가"/>
 
@@ -169,7 +182,7 @@
         android:layout_columnSpan="3"
         android:layout_gravity="center_horizontal"
         android:layout_width="320dp"
-        android:layout_height="10dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ListView
@@ -177,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:choiceMode="singleChoice"
             android:orientation="vertical"/>
     </LinearLayout>
@@ -186,24 +199,13 @@
         android:id="@+id/btnEnd"
         android:layout_width="70dp"
         android:layout_height="30dp"
-        android:layout_columnSpan="1"
+        android:layout_columnSpan="3"
         android:layout_gravity="bottom|center"
-        android:layout_margin="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
         android:background="#FFD3B0"
-        android:fontFamily="@font/nanumbarungothicbold"
+        android:fontFamily="@font/maplestorylight"
         android:onClick="mOnClick"
         android:text="입력 완료"
-        android:textSize="12dp" />
-    <Button
-        android:id="@+id/btnplus"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_columnSpan="1"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="15dp"
-        android:background="#FFD3B0"
-        android:fontFamily="@font/nanumbarungothicbold"
-        android:onClick="mOnClick"
-        android:text="데이터 확인"
         android:textSize="12dp" />
 </GridLayout>

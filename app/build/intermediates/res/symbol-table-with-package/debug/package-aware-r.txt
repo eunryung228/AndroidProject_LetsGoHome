@@ -660,8 +660,12 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable dad
+drawable grandma
+drawable grandpa
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable mom
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -674,8 +678,11 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable parent
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font maplestorybold
+font maplestorylight
 font nanumbarungothic
 font nanumbarungothicbold
 id ALT
@@ -716,7 +723,6 @@ id blocking
 id bottom
 id btnDelete
 id btnEnd
-id btnplus
 id button
 id buttonPanel
 id center
@@ -759,6 +765,7 @@ id icon
 id icon_group
 id ifRoom
 id image
+id imageView2
 id info
 id invisible
 id italic
@@ -829,8 +836,13 @@ id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id text
 id text2
+id textHi
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView2
+id textView3
+id textView4
+id textView5
 id time
 id title
 id titleDividerNoCustom
@@ -878,6 +890,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_ktxinformation
 layout activity_main
+layout activity_main_page
 layout listview_items
 layout notification_action
 layout notification_action_tombstone

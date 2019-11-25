@@ -3,6 +3,7 @@ package com.example.letsgohome;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -710,17 +711,51 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId())
         {
             case R.id.addItem:
-                if(!myAdapter.addItem(homeSpin1.getItemAtPosition(myRegion).toString(),
-                        homeSpin2.getItemAtPosition(myStation).toString()))
+                String stName=homeSpin2.getItemAtPosition(myStation).toString();
+                boolean isFind=false;
+                for(int i=0; i<myAdapter.getCount(); i++)
                 {
-                    Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    if(myAdapter.getStationName(i)==stName)
+                    {
+                        isFind=true;
+                    }
+                }
+
+                if(!isFind)
+                {
+                    if(!myAdapter.addItem(homeSpin1.getItemAtPosition(myRegion).toString(),
+                            stName))
+                    {
+                        Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "이미 추가된 역입니다.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.addHometownItem:
-                if(!hometownAdapter.addItem(hometownSpin1.getItemAtPosition(hometownRegion).toString(),
-                        hometownSpin2.getItemAtPosition(hometownStation).toString()))
+                String htName=hometownSpin2.getItemAtPosition(hometownStation).toString();
+                boolean ht_isFind=false;
+                for(int i=0; i<hometownAdapter.getCount(); i++)
                 {
-                    Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    if(hometownAdapter.getStationName(i)==htName)
+                    {
+                        ht_isFind=true;
+                    }
+                }
+
+                if(!ht_isFind)
+                {
+                    if(!hometownAdapter.addItem(hometownSpin1.getItemAtPosition(hometownRegion).toString(),
+                            htName))
+                    {
+                        Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "이미 추가된 역입니다.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btnEnd:
@@ -747,39 +782,10 @@ public class MainActivity extends AppCompatActivity
                     editor.putString("hometownStation", htst);
                     editor.apply();
 
-                    /*
-                    for(int i=0; i<myAdapter.getCount(); i++)
-                    {
-
-                    }
-                    editor.putString("myStation", ja.toString());
-                    ja=new JSONArray();
-
-                    for(int i=0; i<hometownAdapter.getCount(); i++)
-                    {
-                        ja.put(hometownAdapter.getItem(i));
-                    }
-                    editor.putString("hometownStation", ja.toString());
-                    editor.apply();
-                    */
+                    Intent intent=new Intent(getApplicationContext(), MainPage.class);
+                    startActivityForResult(intent, 1000); // main code 1000
                 }
                 break;
-            case R.id.btnplus:
-                SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
-                Gson gson=new Gson();
-
-                String myst=pref.getString("myStation", null);
-                Type type=new TypeToken<ArrayList<String>>(){}.getType();
-
-                ArrayList<String> myList=gson.fromJson(myst, type);
-                String name=pref.getString("name", null);
-
-                Log.d("확인", name);
-
-                for(int i=0; i<myList.size(); i++)
-                {
-                    Log.d("확인", myList.get(i));
-                }
         }
     }
 }

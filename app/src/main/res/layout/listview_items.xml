@@ -12,7 +12,7 @@
         android:layout_margin="3dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:text="서울특별시"
         android:textSize="12dp" />
 
@@ -23,7 +23,7 @@
         android:layout_margin="3dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:text="서빙고"
         android:textSize="12dp" />
 
@@ -33,7 +33,7 @@
         android:layout_height="20dp"
         android:layout_margin="4dp"
         android:background="#FAE0D4"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/maplestorylight"
         android:text="삭제"
         android:textSize="10dp" />
 

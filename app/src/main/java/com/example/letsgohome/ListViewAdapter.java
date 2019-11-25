@@ -32,6 +32,11 @@ public class ListViewAdapter extends BaseAdapter implements ListAdapter
         return myList;
     }
 
+    public String getStationName(int position)
+    {
+        return listViewItemList.get(position).getStation();
+    }
+
     @Override
     public int getCount()
     {
@@ -92,6 +97,7 @@ public class ListViewAdapter extends BaseAdapter implements ListAdapter
 
             item.setRegion(region);
             item.setStation(station);
+
             listViewItemList.add(item);
             this.notifyDataSetChanged();
 
