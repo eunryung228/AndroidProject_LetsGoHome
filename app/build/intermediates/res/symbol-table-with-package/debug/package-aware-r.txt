@@ -716,6 +716,7 @@ id blocking
 id bottom
 id btnDelete
 id btnEnd
+id btnplus
 id button
 id buttonPanel
 id center

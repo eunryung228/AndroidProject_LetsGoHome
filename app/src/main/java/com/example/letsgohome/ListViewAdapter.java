@@ -22,6 +22,16 @@ public class ListViewAdapter extends BaseAdapter implements ListAdapter
     {
     }
 
+    public ArrayList<String> getList()
+    {
+        ArrayList<String> myList=new ArrayList<String>();
+        for(int i=0; i<getCount(); i++)
+        {
+            myList.add(listViewItemList.get(i).getStation());
+        }
+        return myList;
+    }
+
     @Override
     public int getCount()
     {

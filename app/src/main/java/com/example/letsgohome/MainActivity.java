@@ -2,27 +2,36 @@ package com.example.letsgohome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.letsgohome.MakeDB.DBHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
-    private DBHelper dbHelper;
-    SQLiteDatabase db=null;
-
     private int myRegion, myStation, hometownRegion, hometownStation;
     ListViewAdapter myAdapter, hometownAdapter;
     ListView listView1, listView2;
@@ -39,9 +48,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dbHelper=new DBHelper(this);
-        db=dbHelper.getWritableDatabase();
 
         myAdapter=new ListViewAdapter();
         hometownAdapter=new ListViewAdapter();
@@ -697,6 +703,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
     public void mOnClick(View v)
     {
         switch (v.getId())
@@ -715,24 +723,63 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.btnEnd:
+                if(myAdapter.getCount()==0 || hometownAdapter.getCount()==0)
+                {
+                    Toast.makeText(this, "적어도 하나씩의 역을 추가해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=pref.edit();
+                    Gson gson=new Gson();
+                    //JSONArray ja=new JSONArray();
 
+                    EditText name=(EditText) findViewById(R.id.name);
+                    EditText pw=(EditText) findViewById(R.id.password);
+
+                    editor.putString("name", name.getText().toString());
+                    editor.putInt("password", Integer.parseInt(pw.getText().toString()));
+
+                    String myst=gson.toJson(myAdapter.getList());
+                    editor.putString("myStation", myst);
+                    String htst=gson.toJson(hometownAdapter.getList());
+                    editor.putString("hometownStation", htst);
+                    editor.apply();
+
+                    /*
+                    for(int i=0; i<myAdapter.getCount(); i++)
+                    {
+
+                    }
+                    editor.putString("myStation", ja.toString());
+                    ja=new JSONArray();
+
+                    for(int i=0; i<hometownAdapter.getCount(); i++)
+                    {
+                        ja.put(hometownAdapter.getItem(i));
+                    }
+                    editor.putString("hometownStation", ja.toString());
+                    editor.apply();
+                    */
+                }
+                break;
+            case R.id.btnplus:
+                SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
+                Gson gson=new Gson();
+
+                String myst=pref.getString("myStation", null);
+                Type type=new TypeToken<ArrayList<String>>(){}.getType();
+
+                ArrayList<String> myList=gson.fromJson(myst, type);
+                String name=pref.getString("name", null);
+
+                Log.d("확인", name);
+
+                for(int i=0; i<myList.size(); i++)
+                {
+                    Log.d("확인", myList.get(i));
+                }
         }
     }
-
-    /*
-    db 정보 읽어오기
-    public void mOnClick(View v)
-    {
-        TextView result=(TextView) findViewById(R.id.result);
-        TextView result2=(TextView) findViewById(R.id.result2);
-
-        Cursor cursor=db.rawQuery("SELECT * FROM STATIONS", null);
-
-        while(cursor.moveToNext())
-        {
-            result.setText(cursor.getString(0));
-            result2.setText(cursor.getString(1));
-        }
-    }
-    */
 }
