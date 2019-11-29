@@ -61,7 +61,7 @@
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
-        android:text="본가 역 선택" />
+        android:text="나의 집 주변 역 선택" />
 
     <LinearLayout
         android:layout_column="0"
@@ -133,7 +133,7 @@
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/maplestorylight"
         android:textSize="15dp"
-        android:text="고향 역 선택" />
+        android:text="고향(본가) 역 선택" />
 
     <LinearLayout
         android:layout_column="0"

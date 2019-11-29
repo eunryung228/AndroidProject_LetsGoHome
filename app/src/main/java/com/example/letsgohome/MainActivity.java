@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -29,6 +30,7 @@ import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -43,12 +45,18 @@ public class MainActivity extends AppCompatActivity
     Spinner homeSpin1, homeSpin2;
     Spinner hometownSpin1, hometownSpin2;
 
+    EditText name;
+    EditText pw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        name=(EditText) findViewById(R.id.name);
+        pw=(EditText) findViewById(R.id.password);
 
         myAdapter=new ListViewAdapter();
         hometownAdapter=new ListViewAdapter();
@@ -716,27 +724,33 @@ public class MainActivity extends AppCompatActivity
                 for(int i=0; i<myAdapter.getCount(); i++)
                 {
                     if(myAdapter.getStationName(i)==stName)
-                    {
                         isFind=true;
-                    }
                 }
 
                 if(!isFind)
                 {
-                    if(!myAdapter.addItem(homeSpin1.getItemAtPosition(myRegion).toString(),
-                            stName))
+                    boolean isIn=false;
+                    if(hometownAdapter.getList().contains(stName))
+                        isIn=true;
+
+                    if(!isIn)
                     {
-                        Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        if(!myAdapter.addItem(homeSpin1.getItemAtPosition(myRegion).toString(),
+                                stName))
+                        {
+                            Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                    else
+                        Toast.makeText(this, "고향 역에 추가된 역은 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else
-                {
                     Toast.makeText(this, "이미 추가된 역입니다.", Toast.LENGTH_SHORT).show();
-                }
                 break;
             case R.id.addHometownItem:
                 String htName=hometownSpin2.getItemAtPosition(hometownStation).toString();
                 boolean ht_isFind=false;
+
                 for(int i=0; i<hometownAdapter.getCount(); i++)
                 {
                     if(hometownAdapter.getStationName(i)==htName)
@@ -747,11 +761,19 @@ public class MainActivity extends AppCompatActivity
 
                 if(!ht_isFind)
                 {
-                    if(!hometownAdapter.addItem(hometownSpin1.getItemAtPosition(hometownRegion).toString(),
-                            htName))
+                    boolean isIn = false;
+                    if(myAdapter.getList().contains(htName))
+                        isIn=true;
+
+                    if (!isIn)
                     {
-                        Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        if (!hometownAdapter.addItem(hometownSpin1.getItemAtPosition(hometownRegion).toString(),
+                                htName)) {
+                            Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                    else
+                        Toast.makeText(this, "나의 집 주변 역에 추가된 역은 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -759,7 +781,15 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.btnEnd:
-                if(myAdapter.getCount()==0 || hometownAdapter.getCount()==0)
+                if(name.length()==0)
+                {
+                    Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else if(pw.length()!=4)
+                {
+                    Toast.makeText(this, "4자리 패스워드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else if(myAdapter.getCount()==0 || hometownAdapter.getCount()==0)
                 {
                     Toast.makeText(this, "적어도 하나씩의 역을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -768,10 +798,6 @@ public class MainActivity extends AppCompatActivity
                     SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
                     SharedPreferences.Editor editor=pref.edit();
                     Gson gson=new Gson();
-                    //JSONArray ja=new JSONArray();
-
-                    EditText name=(EditText) findViewById(R.id.name);
-                    EditText pw=(EditText) findViewById(R.id.password);
 
                     editor.putString("name", name.getText().toString());
                     editor.putInt("password", Integer.parseInt(pw.getText().toString()));
