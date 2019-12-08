@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,11 +23,16 @@ public class MainPage extends AppCompatActivity
     String name;
     int pw;
 
+    TextView textMeet;
+    TextView textNextMeet;
+    TextView textCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
@@ -49,6 +55,15 @@ public class MainPage extends AppCompatActivity
         {
             Log.d("확인", myList.get(i));
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+
+
     }
 
     public void mOnClick(View v)

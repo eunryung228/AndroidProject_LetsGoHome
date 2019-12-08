@@ -54,6 +54,22 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
+
+        String checkName=pref.getString("name", null);
+
+        if(checkName!=null)
+        {
+            Toast.makeText(this, checkName+"님 반갑습니다! 자동로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(getApplicationContext(), MainPage.class);
+            startActivityForResult(intent, 1000); // main code 1000
+            finish();
+        }
+
+        DBHelper dbHelper=new DBHelper(this);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        dbHelper.resetDB(db); // 새로 앱 실행할 때마다 db reset (debugging 용, 제출 시 꼭 지울 것)
+
         name=(EditText) findViewById(R.id.name);
         pw=(EditText) findViewById(R.id.password);
 

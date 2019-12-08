@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 
 import java.util.ArrayList;
 
@@ -32,14 +34,10 @@ public class Calendar extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        DBHelper dbHelper=new DBHelper(this);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        dbHelper.resetDB(db);
-
         buttonAdd=(Button) findViewById(R.id.btnAdd);
 
         calendarView=(MaterialCalendarView) findViewById(R.id.calendar);
-        calendarView.addDecorator(new WeekendDecorator());
+        calendarView.addDecorators(new WeekendDecorator());
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -51,7 +49,7 @@ public class Calendar extends AppCompatActivity
                     buttonAdd.setText("날짜 추가");
             }
         });
-        eventDecorator=new EventDecorator(Color.DKGRAY);
+        eventDecorator=new EventDecorator(this);
     }
 
     public void mOnClick(View v)

@@ -1,5 +1,10 @@
 package com.example.letsgohome;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.style.ImageSpan;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -11,12 +16,14 @@ import java.util.HashSet;
 
 public class EventDecorator implements DayViewDecorator
 {
-    private final int color;
+    private final Drawable drawable;
     private ArrayList<CalendarDay> dates;
+    private Context cont;
 
-    public EventDecorator(int color)
+    public EventDecorator(Context context)
     {
-        this.color=color;
+        cont=context;
+        drawable=context.getResources().getDrawable(R.drawable.home);
         this.dates=new ArrayList<>();
     }
 
@@ -43,6 +50,6 @@ public class EventDecorator implements DayViewDecorator
     @Override
     public void decorate(DayViewFacade view)
     {
-        view.addSpan(new DotSpan(10, color));
+        view.addSpan(new ImageSpan(cont, R.drawable.home));
     }
 }

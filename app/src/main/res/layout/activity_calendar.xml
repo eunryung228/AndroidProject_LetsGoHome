@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:mcv_selectionColor="#FFD3B0"
+        app:mcv_selectionColor="#eeeeee"
         app:mcv_showOtherDates="defaults">
     </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 

@@ -689,6 +689,7 @@ drawable call
 drawable dad
 drawable grandma
 drawable grandpa
+drawable home
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ktx
@@ -888,12 +889,12 @@ id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id text
 id text2
+id textCall
 id textHi
+id textMeet
+id textNextMeet
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView2
-id textView3
-id textView4
 id textView5
 id thursday
 id time
