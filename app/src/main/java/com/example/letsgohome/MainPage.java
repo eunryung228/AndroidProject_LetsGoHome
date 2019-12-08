@@ -16,7 +16,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class MainPage extends AppCompatActivity
 {
@@ -33,6 +38,9 @@ public class MainPage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        textMeet=(TextView) findViewById(R.id.textMeet);
+        textNextMeet=(TextView) findViewById(R.id.textNextMeet);
+        textCall=(TextView) findViewById(R.id.textCall);
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
@@ -62,7 +70,55 @@ public class MainPage extends AppCompatActivity
     {
         super.onResume();
 
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+        ArrayList<Date> days=new ArrayList<>();
 
+        DBHelper dbHelper=new DBHelper(this);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.rawQuery("SELECT DATE FROM CALENDAR ORDER BY DATE", null);
+
+        try
+        {
+            Date date;
+            while (cursor.moveToNext())
+            {
+                date=dateFormat.parse(cursor.getString(0));
+                days.add(date);
+                Log.d("db", cursor.getString(0));
+            }
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        db.close();
+
+        /*
+        for (int i=0; i<days.size(); i++)
+        {
+            Log.d("db", days.get(i).toString());
+        }
+         /*
+            1. 각 날짜를 오늘과 비교함
+            2. 오늘의 before()들 중 가장 큰 날짜를 찾음
+            3. 오늘의 after()들 중 가장 작은 날짜를 찾음
+            4. date 중 오늘이 있다면 다음으로 가족을 만날 날이 D-day라는 것을 명시, after은 무시해도 됨
+            ...
+        Date today=new Date();
+        for (int i=0; i<=days.size(); i++)
+        {
+            if(today.before())
+        }
+        Date date2= dateFormat.parse(second);
+
+        long lastMeet=date1.getTime()-date2
+
+        long diff=date1.getTime()-date2.getTime();
+        long diffDays=diff/(24*60*60*1000);
+        Log.d("db", String.valueOf(diffDays));
+            */
+
+        //textMeet.setText("· 가족을 못 만난 지 어느덧 "+30일");
+        // textNextMeet.setText("· 다음 가족을 만날 날까지 30일");
 
     }
 
