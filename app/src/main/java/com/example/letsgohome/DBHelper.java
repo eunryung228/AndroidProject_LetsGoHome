@@ -1,16 +1,19 @@
-package com.example.letsgohome.MakeDB;
+package com.example.letsgohome;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.print.PrinterId;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper
 {
+    public static final int DATABASE_VERSION=1;
+
     private String ids[];
     {
         ids=new String[]{"NAT010000", "NAT010032", "NAT010058", "NAT010091", "NAT010106", "NAT020040", "NAT130036", "NAT130070", "NAT130104", "NAT130126",
@@ -45,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper
 
     public DBHelper(Context context)
     {
-        super(context, "stationdb", null, 1);
+        super(context, "stationdb", null, DATABASE_VERSION);
     }
 
     @Override
@@ -53,30 +56,47 @@ public class DBHelper extends SQLiteOpenHelper
     {
         try
         {
+            // STATIONS DB
             StringBuffer sb=new StringBuffer();
             sb.append("CREATE TABLE IF NOT EXISTS STATIONS( ");
             sb.append("ID VARCHAR(20) PRIMARY KEY, ");
-            sb.append("NAME VARCHAR(20), ");
-            sb.append("ISMINE CHAR)");
+            sb.append("NAME VARCHAR(20) )");
             db.execSQL(sb.toString());
 
             for(int i=0; i<names.length; i++)
             {
-                db.execSQL("INSERT INTO STATIONS"+ "(ID, NAME, ISMINE) VALUES ('"+ ids[i]+"', '"+ names[i]+"', '"+"F"+"');");
+                db.execSQL("INSERT INTO STATIONS"+ "(ID, NAME) VALUES ('"+ ids[i]+"', '"+ names[i]+"');");
             }
+
+            // CALENDAR DB
+            sb=new StringBuffer();
+            sb.append("CREATE TABLE IF NOT EXISTS CALENDAR( ");
+            sb.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
+            sb.append("DATE DATE )");
+            db.execSQL(sb.toString());
+            Log.d("db", "make calendar db");
         }
         catch (SQLiteException e)
         {
+            Log.d("db", "sql error");
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+        if(newVersion==DATABASE_VERSION)
+        {
+            db.execSQL("DROP TABLE STATIONS");
+            db.execSQL("DROP TABLE CALENDAR");
+            onCreate(db);
+        }
     }
 
-    public void testDB()
+    public void resetDB(SQLiteDatabase db)
     {
-        SQLiteDatabase db=getReadableDatabase();
+        db.execSQL("DROP TABLE STATIONS");
+        db.execSQL("DROP TABLE CALENDAR");
+        onCreate(db);
     }
 }

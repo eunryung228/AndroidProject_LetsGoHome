@@ -2,9 +2,13 @@ package com.example.letsgohome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -44,6 +48,27 @@ public class MainPage extends AppCompatActivity
         for(int i=0; i<myList.size(); i++)
         {
             Log.d("확인", myList.get(i));
+        }
+    }
+
+    public void mOnClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.btnCal:
+                Intent intent=new Intent(getApplicationContext(), Calendar.class);
+                startActivityForResult(intent, 1001); // calendar: 1001
+                break;
+            case R.id.btnKtx:
+                DBHelper dbHelper=new DBHelper(this);
+                SQLiteDatabase db=dbHelper.getWritableDatabase();
+                Cursor cursor=db.rawQuery("SELECT DATE FROM CALENDAR ORDER BY DATE", null);
+
+                while (cursor.moveToNext())
+                {
+                    Log.d("db", cursor.getString(0));
+                }
+                db.close();
         }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical"
+    tools:context=".Calendar">
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:mcv_selectionColor="#FFD3B0"
+        app:mcv_showOtherDates="defaults">
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="#eeeeee"
+        android:fontFamily="@font/maplestorylight"
+        android:onClick="mOnClick"
+        android:textSize="14dp"
+        android:text="날짜 추가" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="20dp"
+            android:background="#9e9e9e"
+            android:fontFamily="@font/maplestorylight"
+            android:onClick="mOnClick"
+            android:text="돌아가기"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+    </FrameLayout>
+</LinearLayout>

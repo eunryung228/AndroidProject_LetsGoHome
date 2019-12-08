@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffe4d9"
+    android:background="#FFF2E6"
     tools:context=".MainPage">
 
     <TextView
@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFFCFC"
         android:orientation="vertical"
         android:padding="20dp">
@@ -29,7 +29,7 @@
             android:id="@+id/textHi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/maplestorybold"
+            android:fontFamily="@font/maplestorylight"
             android:text="안녕하세요 ~~~~~님!"
             android:textSize="15dp" />
 
@@ -84,4 +84,90 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFCFC"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <ImageButton
+                android:id="@+id/btnCal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="#FFFCFC"
+                android:onClick="mOnClick"
+                android:src="@drawable/cal" />
+
+            <ImageButton
+                android:id="@+id/btnKtx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#FFFCFC"
+                android:onClick="mOnClick"
+                android:src="@drawable/ktx" />
+
+            <ImageButton
+                android:id="@+id/btnCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="#FFFCFC"
+                android:onClick="mOnClick"
+                android:src="@drawable/call" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFCFC"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/maplestorylight"
+                android:textSize="12dp"
+                android:text="캘린더" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/maplestorylight"
+                android:textSize="12dp"
+                android:text="ktx 조회" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/maplestorylight"
+                android:textSize="12dp"
+                android:text="전화하기" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

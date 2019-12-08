@@ -256,6 +256,23 @@ attr listPreferredItemPaddingRight
 attr logo
 attr logoDescription
 attr maxButtonHeight
+attr mcv_allowClickDaysOutsideCurrentMonth
+attr mcv_arrowColor
+attr mcv_calendarMode
+attr mcv_dateTextAppearance
+attr mcv_firstDayOfWeek
+attr mcv_headerTextAppearance
+attr mcv_leftArrowMask
+attr mcv_monthLabels
+attr mcv_rightArrowMask
+attr mcv_selectionColor
+attr mcv_showOtherDates
+attr mcv_tileHeight
+attr mcv_tileSize
+attr mcv_tileWidth
+attr mcv_titleAnimationOrientation
+attr mcv_weekDayLabels
+attr mcv_weekDayTextAppearance
 attr measureWithLargestChild
 attr multiChoiceItemLayout
 attr navigationContentDescription
@@ -432,8 +449,11 @@ color material_grey_600
 color material_grey_800
 color material_grey_850
 color material_grey_900
+color mcv_text_date_dark
+color mcv_text_date_light
 color notification_action_color_filter
 color notification_icon_bg_color
+color notification_material_background_media_default_color
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -568,6 +588,10 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
+dimen subtitle_corner_radius
+dimen subtitle_outline_width
+dimen subtitle_shadow_offset
+dimen subtitle_shadow_radius
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -660,11 +684,16 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable cal
+drawable call
 drawable dad
 drawable grandma
 drawable grandpa
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ktx
+drawable mcv_action_next
+drawable mcv_action_previous
 drawable mom
 drawable notification_action_background
 drawable notification_bg
@@ -691,6 +720,7 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id action0
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -721,10 +751,17 @@ id barrier
 id beginning
 id blocking
 id bottom
+id btnAdd
+id btnBack
+id btnCal
+id btnCall
 id btnDelete
 id btnEnd
+id btnKtx
 id button
 id buttonPanel
+id calendar
+id cancel_action
 id center
 id center_horizontal
 id center_vertical
@@ -739,18 +776,22 @@ id contentPanel
 id custom
 id customPanel
 id decor_content_parent
+id decorated_disabled
 id default_activity_button
+id defaults
 id dimensions
 id direct
 id disableHome
 id edit_query
 id end
+id end_padder
 id expand_activities_button
 id expanded_menu
 id fill
 id fill_horizontal
 id fill_vertical
 id forever
+id friday
 id gone
 id group_divider
 id groups
@@ -761,6 +802,7 @@ id homeAsUp
 id hometown1
 id hometown2
 id hometownStations
+id horizontal
 id icon
 id icon_group
 id ifRoom
@@ -775,8 +817,13 @@ id line1
 id line3
 id listMode
 id list_item
+id match_parent
+id mcv_pager
+id media_actions
 id message
 id middle
+id monday
+id month
 id multiply
 id myStations
 id name
@@ -786,6 +833,8 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id other_months
+id out_of_range
 id packed
 id parent
 id parentPanel
@@ -799,6 +848,7 @@ id result
 id right
 id right_icon
 id right_side
+id saturday
 id screen
 id scrollIndicatorDown
 id scrollIndicatorUp
@@ -828,8 +878,10 @@ id src_over
 id standard
 id start
 id stationName
+id status_bar_latest_event_content
 id submenuarrow
 id submit_area
+id sunday
 id tabMode
 id tag_transition_group
 id tag_unhandled_key_event_manager
@@ -843,15 +895,20 @@ id textView2
 id textView3
 id textView4
 id textView5
+id thursday
 id time
 id title
 id titleDividerNoCustom
 id title_template
 id top
 id topPanel
+id tuesday
 id uniform
 id up
 id useLogo
+id vertical
+id wednesday
+id week
 id withText
 id wrap
 id wrap_content
@@ -888,14 +945,24 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_calendar
 layout activity_ktxinformation
 layout activity_main
 layout activity_main_page
 layout listview_items
 layout notification_action
 layout notification_action_tombstone
+layout notification_media_action
+layout notification_media_cancel_action
+layout notification_template_big_media
+layout notification_template_big_media_custom
+layout notification_template_big_media_narrow
+layout notification_template_big_media_narrow_custom
 layout notification_template_custom_big
 layout notification_template_icon_group
+layout notification_template_lines_media
+layout notification_template_media
+layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout select_dialog_item_material
@@ -944,6 +1011,9 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string app_name
+string calendar
+string next
+string previous
 string search_menu_title
 string status_bar_notification_info_overflow
 style AlertDialog_AppCompat
@@ -1184,9 +1254,17 @@ style TextAppearance_AppCompat_Widget_Switch
 style TextAppearance_AppCompat_Widget_TextView_SpinnerItem
 style TextAppearance_Compat_Notification
 style TextAppearance_Compat_Notification_Info
+style TextAppearance_Compat_Notification_Info_Media
 style TextAppearance_Compat_Notification_Line2
+style TextAppearance_Compat_Notification_Line2_Media
+style TextAppearance_Compat_Notification_Media
 style TextAppearance_Compat_Notification_Time
+style TextAppearance_Compat_Notification_Time_Media
 style TextAppearance_Compat_Notification_Title
+style TextAppearance_Compat_Notification_Title_Media
+style TextAppearance_MaterialCalendarWidget_Date
+style TextAppearance_MaterialCalendarWidget_Header
+style TextAppearance_MaterialCalendarWidget_WeekDay
 style TextAppearance_Widget_AppCompat_ExpandedMenu_Item
 style TextAppearance_Widget_AppCompat_Toolbar_Subtitle
 style TextAppearance_Widget_AppCompat_Toolbar_Title
@@ -1325,6 +1403,7 @@ styleable LinearConstraintLayout android_orientation
 styleable LinearLayoutCompat android_gravity android_orientation android_baselineAligned android_baselineAlignedChildIndex android_weightSum divider dividerPadding measureWithLargestChild showDividers
 styleable LinearLayoutCompat_Layout android_layout_gravity android_layout_width android_layout_height android_layout_weight
 styleable ListPopupWindow android_dropDownHorizontalOffset android_dropDownVerticalOffset
+styleable MaterialCalendarView mcv_allowClickDaysOutsideCurrentMonth mcv_arrowColor mcv_calendarMode mcv_dateTextAppearance mcv_firstDayOfWeek mcv_headerTextAppearance mcv_leftArrowMask mcv_monthLabels mcv_rightArrowMask mcv_selectionColor mcv_showOtherDates mcv_tileHeight mcv_tileSize mcv_tileWidth mcv_titleAnimationOrientation mcv_weekDayLabels mcv_weekDayTextAppearance
 styleable MenuGroup android_enabled android_id android_visible android_menuCategory android_orderInCategory android_checkableBehavior
 styleable MenuItem android_icon android_enabled android_id android_checked android_visible android_menuCategory android_orderInCategory android_title android_titleCondensed android_alphabeticShortcut android_numericShortcut android_checkable android_onClick actionLayout actionProviderClass actionViewClass alphabeticModifiers contentDescription iconTint iconTintMode numericModifiers showAsAction tooltipText
 styleable MenuView android_windowAnimationStyle android_itemTextAppearance android_horizontalDivider android_verticalDivider android_headerBackground android_itemBackground android_itemIconDisabledAlpha preserveIconSpacing subMenuArrow
