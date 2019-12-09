@@ -19,7 +19,7 @@ import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormat
 
 import java.util.ArrayList;
 
-public class Calendar extends AppCompatActivity
+public class MyCalendar extends AppCompatActivity
 {
     MaterialCalendarView calendarView;
     EventDecorator eventDecorator;
@@ -63,7 +63,7 @@ public class Calendar extends AppCompatActivity
                     calendarView.addDecorator(eventDecorator);
                     String date="";
                     date+=String.valueOf(calendarView.getSelectedDate().getYear());
-                    date+="-"+String.valueOf(calendarView.getSelectedDate().getMonth());
+                    date+="-"+String.valueOf(calendarView.getSelectedDate().getMonth()+1);
                     date+="-"+String.valueOf(calendarView.getSelectedDate().getDay());
 
                     DBHelper dbHelper=new DBHelper(this);

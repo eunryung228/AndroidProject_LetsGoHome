@@ -9,19 +9,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class MainPage extends AppCompatActivity
 {
@@ -70,7 +68,7 @@ public class MainPage extends AppCompatActivity
     {
         super.onResume();
 
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Date> days=new ArrayList<>();
 
         DBHelper dbHelper=new DBHelper(this);
@@ -82,7 +80,7 @@ public class MainPage extends AppCompatActivity
             Date date;
             while (cursor.moveToNext())
             {
-                date=dateFormat.parse(cursor.getString(0));
+                date=df.parse(cursor.getString(0));
                 days.add(date);
                 Log.d("db", cursor.getString(0));
             }
@@ -91,35 +89,70 @@ public class MainPage extends AppCompatActivity
             e.printStackTrace();
         }
         db.close();
+        Log.d("db", "--------------------------");
 
-        /*
-        for (int i=0; i<days.size(); i++)
-        {
-            Log.d("db", days.get(i).toString());
-        }
-         /*
-            1. 각 날짜를 오늘과 비교함
-            2. 오늘의 before()들 중 가장 큰 날짜를 찾음
-            3. 오늘의 after()들 중 가장 작은 날짜를 찾음
-            4. date 중 오늘이 있다면 다음으로 가족을 만날 날이 D-day라는 것을 명시, after은 무시해도 됨
-            ...
+
         Date today=new Date();
-        for (int i=0; i<=days.size(); i++)
+        if(days.size()>=1)
         {
-            if(today.before())
+            boolean isFindToday=false;
+            Date befDay=new Date();
+            befDay.setYear(-1000);// 오늘의 before 중 가장 큰 날짜 저장 (최근에 집 다녀온 날짜)
+            // 초기화를 1000년 전으로 한 이유는 new Date()는 오늘 날짜라서 befDay가 저장이 안 되기 때문에
+            Date aftDay=new Date(); // 오늘의 after 중 가장 작은 날짜 저장 (최근에 집 갈 날짜)
+            aftDay.setYear(1000);
+            // 초기화를 1000년 후로 한 이유는 new Date()는 오늘 날짜라서 befDay가 저장이 안 되기 때문에
+
+            for (int i=0; i<days.size(); i++)
+            {
+                if(df.format(today).equals(df.format(days.get(i))))
+                    isFindToday=true;
+                else if(today.after(days.get(i)))
+                {
+                    if(befDay.before(days.get(i)))
+                        befDay=days.get(i);
+                }
+                else if(today.before(days.get(i)))
+                {
+                    if(aftDay.after(days.get(i)))
+                        aftDay=days.get(i);
+                }
+            }
+
+            if(isFindToday)
+            {
+                textMeet.setText("· 오늘 가족을 만나러 가요!");
+
+                if(df.format(aftDay).contains("2900"))
+                    textNextMeet.setText("· 다음 일정은 아직 정하지 않았어요!");
+                else
+                {
+                    long diff=aftDay.getTime()-today.getTime();
+                    long aftMeet=diff/(24*60*60*1000)+1;
+                    textNextMeet.setText("· 다음 가족을 만날 날까지 "+String.valueOf(aftMeet)+"일");
+                }
+            }
+            else
+            {
+                if(df.format(befDay).contains("900")) // 초기 값이라면
+                    textMeet.setText("· 가족을 마지막으로 만난 때가 언제인가요?");
+                else
+                {
+                    long diff=today.getTime()-befDay.getTime();
+                    long lastMeet=diff/(24*60*60*1000);
+                    textMeet.setText("· 가족을 못 만난 지 어느덧 "+String.valueOf(lastMeet)+"일");
+                }
+
+                if(df.format(aftDay).contains("2900"))
+                    textNextMeet.setText("· 아직 가족을 만날 계획이 없어요.. \uD83D\uDE22");
+                else
+                {
+                    long diff=aftDay.getTime()-today.getTime();
+                    long aftMeet=diff/(24*60*60*1000)+1;
+                    textNextMeet.setText("· 다음 가족을 만날 날까지 "+String.valueOf(aftMeet)+"일");
+                }
+            }
         }
-        Date date2= dateFormat.parse(second);
-
-        long lastMeet=date1.getTime()-date2
-
-        long diff=date1.getTime()-date2.getTime();
-        long diffDays=diff/(24*60*60*1000);
-        Log.d("db", String.valueOf(diffDays));
-            */
-
-        //textMeet.setText("· 가족을 못 만난 지 어느덧 "+30일");
-        // textNextMeet.setText("· 다음 가족을 만날 날까지 30일");
-
     }
 
     public void mOnClick(View v)
@@ -127,7 +160,7 @@ public class MainPage extends AppCompatActivity
         switch (v.getId())
         {
             case R.id.btnCal:
-                Intent intent=new Intent(getApplicationContext(), Calendar.class);
+                Intent intent=new Intent(getApplicationContext(), MyCalendar.class);
                 startActivityForResult(intent, 1001); // calendar: 1001
                 break;
             case R.id.btnKtx:

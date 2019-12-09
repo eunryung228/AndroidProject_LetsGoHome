@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.letsgohome.Calendar" />
+        <activity android:name="com.example.letsgohome.MyCalendar" />
         <activity android:name="com.example.letsgohome.MainPage" />
         <activity android:name="com.example.letsgohome.KTXInformation" />
         <activity android:name="com.example.letsgohome.MainActivity" >

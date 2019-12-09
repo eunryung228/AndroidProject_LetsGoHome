@@ -80,10 +80,10 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\sa
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:8:9-35
 	android:theme
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
-activity#com.example.letsgohome.Calendar
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-55
+activity#com.example.letsgohome.MyCalendar
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-43
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
 activity#com.example.letsgohome.MainPage
 ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-46
 	android:name

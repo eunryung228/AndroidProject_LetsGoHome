@@ -32,9 +32,9 @@
 21        android:testOnly="true"
 22        android:theme="@style/AppTheme" >
 22-->D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
-23        <activity android:name="com.example.letsgohome.Calendar" />
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-55
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-43
+23        <activity android:name="com.example.letsgohome.MyCalendar" />
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
 24        <activity android:name="com.example.letsgohome.MainPage" />
 24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-46
 24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-43
