@@ -747,6 +747,7 @@ id addItem
 id alertTitle
 id all
 id always
+id arrTime
 id async
 id barrier
 id beginning
@@ -759,7 +760,7 @@ id btnCall
 id btnDelete
 id btnEnd
 id btnKtx
-id button
+id btnResult
 id buttonPanel
 id calendar
 id cancel_action
@@ -767,6 +768,7 @@ id center
 id center_horizontal
 id center_vertical
 id chains
+id charge
 id checkbox
 id chronometer
 id clip_horizontal
@@ -780,6 +782,7 @@ id decor_content_parent
 id decorated_disabled
 id default_activity_button
 id defaults
+id depTime
 id dimensions
 id direct
 id disableHome
@@ -810,6 +813,7 @@ id ifRoom
 id image
 id imageView2
 id info
+id information
 id invisible
 id italic
 id item_touch_helper_previous_elevation
@@ -845,7 +849,6 @@ id progress_circular
 id progress_horizontal
 id radio
 id regionName
-id result
 id right
 id right_icon
 id right_side
@@ -864,6 +867,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id selectDate
 id select_dialog_listview
 id shortcut
 id showCustom
@@ -895,7 +899,8 @@ id textMeet
 id textNextMeet
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView5
+id textView
+id tglArrive
 id thursday
 id time
 id title
@@ -907,6 +912,7 @@ id tuesday
 id uniform
 id up
 id useLogo
+id vehicle
 id vertical
 id wednesday
 id week
@@ -950,6 +956,7 @@ layout activity_calendar
 layout activity_ktxinformation
 layout activity_main
 layout activity_main_page
+layout ktxlistview_items
 layout listview_items
 layout notification_action
 layout notification_action_tombstone

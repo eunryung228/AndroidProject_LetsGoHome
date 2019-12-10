@@ -5,22 +5,141 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FFF2E6"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="110dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="mOnClick"
-        android:text="클릭하세요!" />
+        android:layout_gravity="center"
+        android:fontFamily="@font/maplestorybold"
+        android:textSize="20dp"
+        android:text="열차 조회" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="#FFFCFC"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/tglArrive"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_margin="8dp"
+            android:background="#FFD3B0"
+            android:fontFamily="@font/maplestorylight"
+            android:text="집 -> 본가"
+            android:textSize="11dp" />
+
+        <Button
+            android:id="@+id/selectDate"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#FFD3B0"
+            android:fontFamily="@font/maplestorylight"
+            android:textSize="11dp"
+            android:text="날짜 선택" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/maplestorylight"
+            android:textSize="14dp"
+            android:text="2019년 12월 10일">
+        </TextView>
+
+        <Button
+            android:id="@+id/btnResult"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#FFD3B0"
+            android:fontFamily="@font/maplestorylight"
+            android:onClick="mOnClick"
+            android:textSize="11dp"
+            android:text="조회" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFCFC"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/maplestorylight"
+            android:gravity="center"
+            android:text="열차"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/depTime"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/maplestorylight"
+            android:gravity="center"
+            android:text="출발"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/arrTime"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:fontFamily="@font/maplestorylight"
+            android:text="도착"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/charge"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:fontFamily="@font/maplestorylight"
+            android:text="금액"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="#BDBDBD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFCFC"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/information"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_margin="8dp"
+            android:choiceMode="singleChoice"
+            android:orientation="vertical"/>
+    </LinearLayout>
+
+
+
 </LinearLayout>

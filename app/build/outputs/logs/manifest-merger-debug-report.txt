@@ -80,18 +80,18 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\sa
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:8:9-35
 	android:theme
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
-activity#com.example.letsgohome.MyCalendar
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
+activity#com.example.letsgohome.calendar.MyCalendar
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-66
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-54
 activity#com.example.letsgohome.MainPage
 ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-46
 	android:name
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-43
-activity#com.example.letsgohome.KTXInformation
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-52
+activity#com.example.letsgohome.ktx.KTXInformation
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-56
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-49
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-53
 activity#com.example.letsgohome.MainActivity
 ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-23:20
 	android:name

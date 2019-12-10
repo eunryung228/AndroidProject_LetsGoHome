@@ -32,15 +32,15 @@
 21        android:testOnly="true"
 22        android:theme="@style/AppTheme" >
 22-->D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
-23        <activity android:name="com.example.letsgohome.MyCalendar" />
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
+23        <activity android:name="com.example.letsgohome.calendar.MyCalendar" />
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-66
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-54
 24        <activity android:name="com.example.letsgohome.MainPage" />
 24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-46
 24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-43
-25        <activity android:name="com.example.letsgohome.KTXInformation" />
-25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-52
-25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-49
+25        <activity android:name="com.example.letsgohome.ktx.KTXInformation" />
+25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-56
+25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-53
 26        <activity android:name="com.example.letsgohome.MainActivity" >
 26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-23:20
 26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:19-47

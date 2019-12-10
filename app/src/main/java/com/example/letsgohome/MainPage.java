@@ -11,11 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.letsgohome.calendar.MyCalendar;
+import com.example.letsgohome.ktx.KTXInformation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class MainPage extends AppCompatActivity
 
         ArrayList<String> myList=gson.fromJson(myst, type);
 
+        /*
         Log.d("확인", Integer.toString(pw));
         Log.d("확인", name);
 
@@ -61,6 +63,7 @@ public class MainPage extends AppCompatActivity
         {
             Log.d("확인", myList.get(i));
         }
+         */
     }
 
     @Override
@@ -160,19 +163,13 @@ public class MainPage extends AppCompatActivity
         switch (v.getId())
         {
             case R.id.btnCal:
-                Intent intent=new Intent(getApplicationContext(), MyCalendar.class);
-                startActivityForResult(intent, 1001); // calendar: 1001
+                Intent intent1=new Intent(getApplicationContext(), MyCalendar.class);
+                startActivityForResult(intent1, 1001); // calendar: 1001
                 break;
             case R.id.btnKtx:
-                DBHelper dbHelper=new DBHelper(this);
-                SQLiteDatabase db=dbHelper.getWritableDatabase();
-                Cursor cursor=db.rawQuery("SELECT DATE FROM CALENDAR ORDER BY DATE", null);
-
-                while (cursor.moveToNext())
-                {
-                    Log.d("db", cursor.getString(0));
-                }
-                db.close();
+                Intent intent2=new Intent(getApplicationContext(), KTXInformation.class);
+                startActivityForResult(intent2, 1002); // ktx: 1002
+                break;
         }
     }
 }

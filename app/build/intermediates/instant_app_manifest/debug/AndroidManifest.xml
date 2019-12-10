@@ -21,9 +21,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.letsgohome.MyCalendar" />
+        <activity android:name="com.example.letsgohome.calendar.MyCalendar" />
         <activity android:name="com.example.letsgohome.MainPage" />
-        <activity android:name="com.example.letsgohome.KTXInformation" />
+        <activity android:name="com.example.letsgohome.ktx.KTXInformation" />
         <activity android:name="com.example.letsgohome.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
