@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.letsgohome.StationOption" />
         <activity android:name="com.example.letsgohome.calendar.MyCalendar" />
         <activity android:name="com.example.letsgohome.MainPage" />
         <activity android:name="com.example.letsgohome.ktx.KTXInformation" />

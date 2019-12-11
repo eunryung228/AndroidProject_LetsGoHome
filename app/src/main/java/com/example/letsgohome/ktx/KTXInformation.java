@@ -117,7 +117,6 @@ public class KTXInformation extends AppCompatActivity
             date+=String.valueOf(m_day);
 
         textDate.setText(m_year+"년 "+m_month+"월 "+m_day+"일");
-        Log.d("check", date);
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
@@ -180,11 +179,16 @@ public class KTXInformation extends AppCompatActivity
                             for (int j=0; j<arrKey.size(); j++) {
                                 for (int k = 0; k < trainList.size(); k++) {
                                     data += getXmlData(depKey.get(i), arrKey.get(j), date, trainList.get(k));
-                                    Log.d("check", data);
+                                    Log.d("ktx", data);
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             // TODO Auto-generated method stub
+                                            if(data=="")
+                                            {
+                                                Toast.makeText(KTXInformation.this, "직행 열차를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
                                             adapter.notifyDataSetChanged();
                                             int pos1 = 0;int pos2 = 0;int pos3 = 0;
                                             int pos4 = 0;int pos5 = 0;int pos6 = 0;int pos7 = 0;
@@ -260,7 +264,6 @@ public class KTXInformation extends AppCompatActivity
                 date+="0"+m_day;
             else
                 date+=m_day;
-            Log.d("check", date);
             textDate.setText(m_year+"년 "+m_month+"월 "+m_day+"일");
         }
     };

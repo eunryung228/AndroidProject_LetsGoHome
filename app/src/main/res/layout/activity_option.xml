@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF2E6"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/maplestorybold"
+        android:textSize="20dp"
+        android:text="역 정보 수정"> </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFCFC"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/maplestorylight"
+            android:textSize="15dp"
+            android:text="나의 집 주변 역 선택" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.3dp"
+            android:background="#BDBDBD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ffffff"
+            android:fontFamily="@font/maplestorylight"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/home1"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:layout_weight="0.53"
+                android:fontFamily="@font/maplestorylight" />
+
+            <Spinner
+                android:id="@+id/home2"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:layout_weight="0.53"
+                android:fontFamily="@font/maplestorylight" />
+
+            <Button
+                android:id="@+id/addItem"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:background="#FFD3B0"
+                android:fontFamily="@font/maplestorylight"
+                android:onClick="mOnClick"
+                android:text="추가" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/myStations"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_margin="8dp"
+                android:choiceMode="singleChoice"
+                android:orientation="vertical"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/maplestorylight"
+            android:textSize="15dp"
+            android:text="고향(본가) 역 선택" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.3dp"
+            android:background="#BDBDBD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/hometown1"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/maplestorylight"
+                android:layout_weight="0.53"/>
+            <Spinner
+                android:id="@+id/hometown2"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/maplestorylight"
+                android:layout_weight="0.53"/>
+            <Button
+                android:id="@+id/addHometownItem"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:background="#FFD3B0"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/maplestorylight"
+                android:onClick="mOnClick"
+                android:text="추가"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/hometownStations"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_margin="8dp"
+                android:choiceMode="singleChoice"
+                android:orientation="vertical"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnEnd"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="#FFD3B0"
+        android:fontFamily="@font/maplestorylight"
+        android:onClick="mOnClick"
+        android:text="입력 완료"
+        android:textSize="12dp" />
+</LinearLayout>

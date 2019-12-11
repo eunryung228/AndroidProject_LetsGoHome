@@ -8,8 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.letsgohome.calendar.MyCalendar;
 import com.example.letsgohome.ktx.KTXInformation;
@@ -49,27 +52,31 @@ public class MainPage extends AppCompatActivity
 
         TextView textHi=(TextView) findViewById(R.id.textHi);
         textHi.setText("안녕하세요 "+name+"님!");
-
-        String myst=pref.getString("myStation", null);
-        Type type=new TypeToken<ArrayList<String>>(){}.getType();
-
-        ArrayList<String> myList=gson.fromJson(myst, type);
-
-        /*
-        Log.d("확인", Integer.toString(pw));
-        Log.d("확인", name);
-
-        for(int i=0; i<myList.size(); i++)
-        {
-            Log.d("확인", myList.get(i));
-        }
-         */
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
+
+        SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
+        Gson gson=new Gson();
+
+        String myst=pref.getString("myStation", null);
+        String homest=pref.getString("hometownStation", null);
+        Type type=new TypeToken<ArrayList<String>>(){}.getType();
+
+        ArrayList<String> myList=gson.fromJson(myst, type);
+        ArrayList<String> homeList=gson.fromJson(homest, type);
+
+        for (int i=0; i<myList.size(); i++)
+        {
+            Log.d("check", myList.get(i));
+        }
+        for (int i=0; i<homeList.size(); i++)
+        {
+            Log.d("check", homeList.get(i));
+        }
 
         SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Date> days=new ArrayList<>();
@@ -156,6 +163,30 @@ public class MainPage extends AppCompatActivity
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        menu.add(Menu.NONE, 1, Menu.NONE, "역 정보 수정");
+        menu.add(Menu.NONE, 2, Menu.NONE, "회원 정보 수정");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case 1:
+                Intent intent=new Intent(getApplicationContext(), StationOption.class);
+                startActivityForResult(intent, 2000);
+                return true;
+            case 2:
+                Toast.makeText(this, "회원 정보 수정 추가할 것~", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void mOnClick(View v)

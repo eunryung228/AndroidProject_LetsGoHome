@@ -957,6 +957,7 @@ layout activity_calendar
 layout activity_ktxinformation
 layout activity_main
 layout activity_main_page
+layout activity_option
 layout ktxlistview_items
 layout listview_items
 layout notification_action
