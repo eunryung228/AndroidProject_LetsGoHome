@@ -40,6 +40,7 @@ public final class R {
     public static final int sejong=0x7f02000e;
     public static final int seoul=0x7f02000f;
     public static final int ulsan=0x7f020010;
+    public static final int vehicle=0x7f020011;
   }
   public static final class attr {
     /**
@@ -3427,12 +3428,12 @@ public final class R {
     public static final int text=0x7f0900b0;
     public static final int text2=0x7f0900b1;
     public static final int textCall=0x7f0900b2;
-    public static final int textHi=0x7f0900b3;
-    public static final int textMeet=0x7f0900b4;
-    public static final int textNextMeet=0x7f0900b5;
-    public static final int textSpacerNoButtons=0x7f0900b6;
-    public static final int textSpacerNoTitle=0x7f0900b7;
-    public static final int textView=0x7f0900b8;
+    public static final int textDate=0x7f0900b3;
+    public static final int textHi=0x7f0900b4;
+    public static final int textMeet=0x7f0900b5;
+    public static final int textNextMeet=0x7f0900b6;
+    public static final int textSpacerNoButtons=0x7f0900b7;
+    public static final int textSpacerNoTitle=0x7f0900b8;
     public static final int tglArrive=0x7f0900b9;
     public static final int thursday=0x7f0900ba;
     public static final int time=0x7f0900bb;

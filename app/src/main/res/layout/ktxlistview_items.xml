@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
+    android:weightSum="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/vehicle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_margin="2dp"
-        android:layout_weight="1"
+        android:layout_weight="0.31"
         android:fontFamily="@font/maplestorylight"
         android:gravity="center"
         android:text="KTX-산천"
@@ -17,10 +18,10 @@
 
     <TextView
         android:id="@+id/depTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_margin="2dp"
-        android:layout_weight="1"
+        android:layout_weight="0.23"
         android:fontFamily="@font/maplestorylight"
         android:gravity="center"
         android:text="13:22 서울"
@@ -28,10 +29,10 @@
 
     <TextView
         android:id="@+id/arrTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_margin="2dp"
-        android:layout_weight="1"
+        android:layout_weight="0.23"
         android:gravity="center"
         android:fontFamily="@font/maplestorylight"
         android:text="15:22 대전"
@@ -39,13 +40,12 @@
 
     <TextView
         android:id="@+id/charge"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_margin="2dp"
-        android:layout_weight="1"
+        android:layout_weight="0.23"
         android:gravity="center"
         android:fontFamily="@font/maplestorylight"
-        android:text="23700원"
+        android:text="0"
         android:textSize="12dp" />
-
 </LinearLayout>

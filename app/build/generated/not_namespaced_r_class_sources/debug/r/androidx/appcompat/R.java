@@ -713,8 +713,8 @@ public final class R {
         public static final int tag_unhandled_key_listeners = 0x7f0900af;
         public static final int text = 0x7f0900b0;
         public static final int text2 = 0x7f0900b1;
-        public static final int textSpacerNoButtons = 0x7f0900b6;
-        public static final int textSpacerNoTitle = 0x7f0900b7;
+        public static final int textSpacerNoButtons = 0x7f0900b7;
+        public static final int textSpacerNoTitle = 0x7f0900b8;
         public static final int time = 0x7f0900bb;
         public static final int title = 0x7f0900bc;
         public static final int titleDividerNoCustom = 0x7f0900bd;

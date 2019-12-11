@@ -84,7 +84,6 @@
             android:layout_width="210dp"
             android:layout_height="30dp"
             android:fontFamily="@font/maplestorylight"
-
             android:layout_weight="0.53"/>
         <Spinner
             android:id="@+id/home2"

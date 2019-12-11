@@ -9,7 +9,6 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +30,7 @@
             android:layout_margin="8dp"
             android:background="#FFD3B0"
             android:fontFamily="@font/maplestorylight"
+            android:onClick="mOnClick"
             android:text="집 -> 본가"
             android:textSize="11dp" />
 
@@ -42,10 +42,12 @@
             android:layout_marginBottom="8dp"
             android:background="#FFD3B0"
             android:fontFamily="@font/maplestorylight"
+            android:onClick="mOnClick"
             android:textSize="11dp"
             android:text="날짜 선택" />
-        
+
         <TextView
+            android:id="@+id/textDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -53,14 +55,16 @@
             android:layout_gravity="center"
             android:fontFamily="@font/maplestorylight"
             android:textSize="14dp"
-            android:text="2019년 12월 10일">
+            android:text="2019년 12월 11일">
         </TextView>
 
         <Button
             android:id="@+id/btnResult"
             android:layout_width="65dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#FFD3B0"
             android:fontFamily="@font/maplestorylight"
@@ -72,14 +76,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="1"
         android:background="#FFFCFC"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/vehicle"
+            android:layout_width="0dp"
             android:layout_height="25dp"
+            android:layout_weight="0.31"
             android:layout_margin="2dp"
-            android:layout_weight="1"
             android:fontFamily="@font/maplestorylight"
             android:gravity="center"
             android:text="열차"
@@ -87,10 +93,10 @@
 
         <TextView
             android:id="@+id/depTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_margin="2dp"
-            android:layout_weight="1"
+            android:layout_weight="0.23"
             android:fontFamily="@font/maplestorylight"
             android:gravity="center"
             android:text="출발"
@@ -98,10 +104,10 @@
 
         <TextView
             android:id="@+id/arrTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_margin="2dp"
-            android:layout_weight="1"
+            android:layout_weight="0.23"
             android:gravity="center"
             android:fontFamily="@font/maplestorylight"
             android:text="도착"
@@ -109,10 +115,10 @@
 
         <TextView
             android:id="@+id/charge"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_margin="2dp"
-            android:layout_weight="1"
+            android:layout_weight="0.23"
             android:gravity="center"
             android:fontFamily="@font/maplestorylight"
             android:text="금액"

@@ -2887,6 +2887,9 @@
         <item>진례</item>
         <item>창원중앙</item>
         <item>창원</item>
+    </string-array><string-array name="vehicle">
+        <item>KTX</item>
+        <item>무궁화호</item>
     </string-array></file><file path="D:\Android\Project\app\src\main\res\values\colors.xml" qualifiers=""><color name="colorPrimary">#008577</color><color name="colorPrimaryDark">#00574B</color><color name="colorAccent">#D81B60</color></file><file path="D:\Android\Project\app\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">LetsGoHome</string></file><file path="D:\Android\Project\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>

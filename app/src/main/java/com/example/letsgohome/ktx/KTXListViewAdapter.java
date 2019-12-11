@@ -68,30 +68,9 @@ public class KTXListViewAdapter extends BaseAdapter implements ListAdapter
         KTXList.add(item);
         this.notifyDataSetChanged();
     }
-    /*
-    public void addItem(String vehicle, String depPlace, String dep, String arrPlace, String arr, String charge)
+
+    public void resetList()
     {
-        KTXListViewItem item=new KTXListViewItem();
-
-        item.setVehicle(vehicle);
-
-        String depart="";
-        String arrive="";
-        String ch="";
-
-        depart=dep.substring(8, 12);
-        depart+=" "+depPlace;
-        item.setDepTime(depart);
-
-        arrive=arr.substring(8, 12);
-        arrive+=" "+arrPlace;
-        item.setArrTime(arrive);
-
-        charge+="원";
-        item.setCharge(charge);
-
-        KTXList.add(item);
-        this.notifyDataSetChanged();
+        KTXList=new ArrayList<KTXListViewItem>();
     }
-     */
 }

@@ -2,6 +2,8 @@ package com.example.letsgohome.ktx;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,7 +15,12 @@ import android.os.StrictMode;
 import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +44,9 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,15 +57,67 @@ public class KTXInformation extends AppCompatActivity
     KTXListViewAdapter adapter;
     ListView info;
 
-    String data;
+    ArrayList<String> myKey=new ArrayList<>();
+    ArrayList<String> homeKey=new ArrayList<>();
+    ArrayList<String> trainList=new ArrayList<>();
 
-    String key="JlFKlwNcTBPfWE9XQoIM4Z1B%2FF3UL%2BlShTo739VP%2FE2Gh7WB8elM4fLEnvONxT9ITGj81ct9WrEjzXY0VmC7Yw%3D%3D";
+    Button btnTgl;
+    TextView textDate;
+    Spinner vehSpin;
+    ArrayAdapter<CharSequence> adveh;
+
+    String data="";
+    String date="";
+    int m_year; int m_month; int m_day;
+    boolean myToHome=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ktxinformation);
+
+        trainList=new ArrayList<String>(Arrays.asList("00", "07"));
+
+        btnTgl=(Button) findViewById(R.id.tglArrive);
+        textDate=(TextView) findViewById(R.id.textDate);
+        vehSpin=(Spinner) findViewById(R.id.vehicle);
+
+        adveh=ArrayAdapter.createFromResource(this, R.array.vehicle, R.layout.support_simple_spinner_dropdown_item);
+        adveh.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        vehSpin.setAdapter(adveh);
+        vehSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
+            {
+                if(vehSpin.getItemAtPosition(p).equals("KTX"))
+                    trainList=new ArrayList<String>(Arrays.asList("00", "07"));
+                else // 무궁화호
+                    trainList=new ArrayList<String>(Arrays.asList("02"));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                trainList=new ArrayList<String>(Arrays.asList("00", "07"));
+            }
+        });
+
+        Calendar cal=Calendar.getInstance();
+        m_year=cal.get(Calendar.YEAR);
+        m_month=cal.get(Calendar.MONTH)+1;
+        m_day=cal.get(Calendar.DATE);
+
+        date+=String.valueOf(m_year);
+        date+=String.valueOf(m_month);
+        int len = (int) (Math.log10(m_day)+1);
+        if(len==1)
+            date+="0"+String.valueOf(m_day);
+        else
+            date+=String.valueOf(m_day);
+
+        textDate.setText(m_year+"년 "+m_month+"월 "+m_day+"일");
+        Log.d("check", date);
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
@@ -66,9 +128,6 @@ public class KTXInformation extends AppCompatActivity
 
         ArrayList<String> myList=gson.fromJson(myst, type);
         ArrayList<String> hometownList=gson.fromJson(homest, type);
-
-        ArrayList<String> myKey=new ArrayList<>();
-        ArrayList<String> homeKey=new ArrayList<>();
 
         DBHelper dbHelper=new DBHelper(this);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
@@ -98,68 +157,120 @@ public class KTXInformation extends AppCompatActivity
         {
             case R.id.btnResult:
                 new Thread(new Runnable() {
-
                     @Override
                     public void run()
                     {
                         // TODO Auto-generated method stub
-                        data=getXmlData();
-                        Log.d("check", data);
+                        adapter.resetList(); // adapter 내부 list reset
+                        ArrayList<String> depKey=new ArrayList<>();
+                        ArrayList<String> arrKey=new ArrayList<>();
 
-                        runOnUiThread(new Runnable()
+                        if(myToHome)
                         {
-                            @Override
-                            public void run()
-                            {
-                                // TODO Auto-generated method stub
-                                int pos1=0; int pos2=0; int pos3=0; int pos4=0; int pos5=0; int pos6=0; int pos7=0;
-                                KTXListViewItem item=new KTXListViewItem();
-                                while (pos7>=0)
-                                {
-                                    pos1=data.indexOf("ch");
-                                    pos2=data.indexOf("arp");
-                                    pos3=data.indexOf("art");
-                                    pos4=data.indexOf("depp");
-                                    pos5=data.indexOf("dept");
-                                    pos6=data.indexOf("veh");
-                                    pos7=data.indexOf("ch", pos6);
+                            depKey=myKey;
+                            arrKey=homeKey;
+                        }
+                        else
+                        {
+                            depKey=homeKey;
+                            arrKey=myKey;
+                        }
 
-                                    if(pos7==-1)
-                                        pos7=data.length();
+                        for (int i=0; i<depKey.size(); i++) {
+                            for (int j=0; j<arrKey.size(); j++) {
+                                for (int k = 0; k < trainList.size(); k++) {
+                                    data += getXmlData(depKey.get(i), arrKey.get(j), date, trainList.get(k));
+                                    Log.d("check", data);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // TODO Auto-generated method stub
+                                            adapter.notifyDataSetChanged();
+                                            int pos1 = 0;int pos2 = 0;int pos3 = 0;
+                                            int pos4 = 0;int pos5 = 0;int pos6 = 0;int pos7 = 0;
+                                            KTXListViewItem item = new KTXListViewItem();
 
-                                    item.setCharge(data.substring(pos1+2, pos2));
-                                    item.setDepTime(data.substring(pos5+4, pos6)+" "+data.substring(pos4+4, pos5));
-                                    item.setArrTime(data.substring(pos3+3, pos4)+" "+data.substring(pos2+3, pos3));
-                                    item.setVehicle(data.substring(pos6+3, pos7));
-                                    adapter.addItem(item);
-                                    adapter.notifyDataSetChanged();
-                                    item=new KTXListViewItem();
+                                            while (pos7 >= 0)
+                                            {
+                                                pos1 = data.indexOf("ch");
+                                                pos2 = data.indexOf("arp");
+                                                pos3 = data.indexOf("art");
+                                                pos4 = data.indexOf("depp");
+                                                pos5 = data.indexOf("dept");
+                                                pos6 = data.indexOf("veh");
+                                                pos7 = data.indexOf("ch", pos6);
 
-                                    if(pos7==data.length())
-                                        break;
-                                    data=data.substring(pos7);
+                                                if (pos7 == -1)
+                                                    pos7 = data.length();
+
+                                                item.setCharge(data.substring(pos1 + 2, pos2));
+                                                item.setDepTime(data.substring(pos5 + 4, pos6) + " " + data.substring(pos4 + 4, pos5));
+                                                item.setArrTime(data.substring(pos3 + 3, pos4) + " " + data.substring(pos2 + 3, pos3));
+                                                item.setVehicle(data.substring(pos6 + 3, pos7));
+                                                adapter.addItem(item);
+                                                adapter.notifyDataSetChanged();
+                                                item = new KTXListViewItem();
+
+                                                if (pos7 == data.length())
+                                                {
+                                                    data = "";
+                                                    break;
+                                                }
+                                                data = data.substring(pos7);
+                                            }
+                                        }
+                                    });
                                 }
                             }
-                        });
+                        }
                     }
                 }).start();
+                break;
+            case R.id.tglArrive:
+                if(myToHome)
+                {
+                    myToHome=false;
+                    btnTgl.setText("본가 -> 집");
+                }
+                else
+                {
+                    myToHome=true;
+                    btnTgl.setText("집 -> 본가");
+                }
+                break;
+            case R.id.selectDate:
+                DatePickerDialog dp=new DatePickerDialog(this, listener, m_year, m_month-1, m_day);
+                dp.show();
                 break;
         }
     }
 
-    protected String getXmlData()
+    private DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener()
     {
-        String url="http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=JlFKlwNcTBPfWE9XQoIM4Z1B%2FF3UL%2BlShTo739VP%2FE2Gh7WB8elM4fLEnvONxT9ITGj81ct9WrEjzXY0VmC7Yw%3D%3D&numOfRows=50&pageNo=1&depPlaceId=" +
-                "NAT010000" +
-                "&arrPlaceId=" +
-                "NAT011668" +
-                "&depPlandTime=" +
-                "20191210" +
-                "&trainGradeCode=" +
-                "00";
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+        {
+            m_year=year;
+            m_month=month+1;
+            m_day=dayOfMonth;
+
+            date=m_year+""+m_month+"";
+            int len = (int) (Math.log10(m_day)+1);
+            if(len==1)
+                date+="0"+m_day;
+            else
+                date+=m_day;
+            Log.d("check", date);
+            textDate.setText(m_year+"년 "+m_month+"월 "+m_day+"일");
+        }
+    };
+
+    protected String getXmlData(String depCode, String arrCode, String date, String trainCode)
+    {
+        String url="http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=JlFKlwNcTBPfWE9XQoIM4Z1B%2FF3UL%2BlShTo739VP%2FE2Gh7WB8elM4fLEnvONxT9ITGj81ct9WrEjzXY0VmC7Yw%3D%3D&numOfRows=60&pageNo=1&depPlaceId=" +
+                depCode +"&arrPlaceId=" +arrCode +"&depPlandTime=" +date +"&trainGradeCode=" +trainCode;
 
         String result="";
-
         try {
             URL obj_url = new URL(url);
             URLConnection connection=obj_url.openConnection();
