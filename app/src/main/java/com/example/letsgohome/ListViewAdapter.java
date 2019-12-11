@@ -32,6 +32,16 @@ public class ListViewAdapter extends BaseAdapter implements ListAdapter
         return myList;
     }
 
+    public ArrayList<String> getRegionList()
+    {
+        ArrayList<String> regionList=new ArrayList<String>();
+        for(int i=0; i<getCount(); i++)
+        {
+            regionList.add(listViewItemList.get(i).getRegion());
+        }
+        return regionList;
+    }
+
     public String getStationName(int position)
     {
         return listViewItemList.get(position).getStation();

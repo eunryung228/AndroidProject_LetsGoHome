@@ -819,6 +819,12 @@ public class MainActivity extends AppCompatActivity
                     editor.putString("myStation", myst);
                     String htst=gson.toJson(hometownAdapter.getList());
                     editor.putString("hometownStation", htst);
+
+                    String myregion=gson.toJson(myAdapter.getRegionList());
+                    String htregion=gson.toJson(hometownAdapter.getRegionList());
+                    editor.putString("myRegion", myregion);
+                    editor.putString("hometownRegion", htregion);
+
                     editor.apply();
 
                     Intent intent=new Intent(getApplicationContext(), MainPage.class);

@@ -178,7 +178,8 @@ public class KTXInformation extends AppCompatActivity
                         for (int i=0; i<depKey.size(); i++) {
                             for (int j=0; j<arrKey.size(); j++) {
                                 for (int k = 0; k < trainList.size(); k++) {
-                                    data += getXmlData(depKey.get(i), arrKey.get(j), date, trainList.get(k));
+                                    Log.d("ktx", depKey.get(i)+arrKey.get(j)+date+trainList.get(k));
+                                    data = getXmlData(depKey.get(i), arrKey.get(j), date, trainList.get(k));
                                     Log.d("ktx", data);
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -186,7 +187,7 @@ public class KTXInformation extends AppCompatActivity
                                             // TODO Auto-generated method stub
                                             if(data=="")
                                             {
-                                                Toast.makeText(KTXInformation.this, "직행 열차를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(KTXInformation.this, "열차 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                                                 return;
                                             }
                                             adapter.notifyDataSetChanged();

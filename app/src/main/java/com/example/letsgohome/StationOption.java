@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,8 @@ public class StationOption extends AppCompatActivity
 
     ArrayList<String> myList=new ArrayList<>();
     ArrayList<String> homeList=new ArrayList<>();
+    ArrayList<String> myRegionList=new ArrayList<>();
+    ArrayList<String> homeRegionList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,13 +47,25 @@ public class StationOption extends AppCompatActivity
 
         String myst=pref.getString("myStation", null);
         String homest=pref.getString("hometownStation", null);
+        String myregion=pref.getString("myRegion", null);
+        String htregion=pref.getString("hometownRegion", null);
         Type type=new TypeToken<ArrayList<String>>(){}.getType();
 
         myList=gson.fromJson(myst, type);
         homeList=gson.fromJson(homest, type);
+        myRegionList=gson.fromJson(myregion, type);
+        homeRegionList=gson.fromJson(htregion, type);
 
         myAdapter=new ListViewAdapter();
         hometownAdapter=new ListViewAdapter();
+        for (int i=0; i<myList.size(); i++)
+        {
+            myAdapter.addItem(myRegionList.get(i), myList.get(i));
+        }
+        for (int i=0; i<homeList.size(); i++)
+        {
+            hometownAdapter.addItem(homeRegionList.get(i), homeList.get(i));
+        }
 
         listView1=(ListView) findViewById(R.id.myStations);
         listView2=(ListView) findViewById(R.id.hometownStations);
@@ -783,6 +798,13 @@ public class StationOption extends AppCompatActivity
                     String htst=gson.toJson(hometownAdapter.getList());
                     editor.remove("hometownStation");
                     editor.putString("hometownStation", htst);
+
+                    String myregion=gson.toJson(myAdapter.getRegionList());
+                    String htregion=gson.toJson(hometownAdapter.getRegionList());
+                    editor.remove("myRegion");
+                    editor.remove("hometownRegion");
+                    editor.putString("myRegion", myregion);
+                    editor.putString("hometownRegion", htregion);
                     editor.apply();
 
                     Intent intent=new Intent(getApplicationContext(), MainPage.class);
