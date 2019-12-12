@@ -761,6 +761,8 @@ id btnCall
 id btnDelete
 id btnEnd
 id btnKtx
+id btnName
+id btnPassword
 id btnResult
 id buttonPanel
 id calendar
@@ -812,7 +814,6 @@ id icon
 id icon_group
 id ifRoom
 id image
-id imageView2
 id info
 id information
 id invisible
@@ -849,6 +850,12 @@ id percent
 id progress_circular
 id progress_horizontal
 id radio
+id radioDad
+id radioGrandma
+id radioGrandpa
+id radioGroup
+id radioMom
+id radioParent
 id regionName
 id right
 id right_icon
@@ -888,6 +895,8 @@ id status_bar_latest_event_content
 id submenuarrow
 id submit_area
 id sunday
+id switchCall
+id switchPassword
 id tabMode
 id tag_transition_group
 id tag_unhandled_key_event_manager
@@ -954,6 +963,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_calendar
+layout activity_info_option
 layout activity_ktxinformation
 layout activity_main
 layout activity_main_page

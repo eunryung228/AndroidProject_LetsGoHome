@@ -2,15 +2,18 @@ package com.example.letsgohome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +32,16 @@ public class MainPage extends AppCompatActivity
 {
     String name;
     int pw;
+    int imageNum;
+    boolean useCall=false;
 
+    TextView textHi;
     TextView textMeet;
     TextView textNextMeet;
     TextView textCall;
+
+    public static Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,13 +54,16 @@ public class MainPage extends AppCompatActivity
         textCall=(TextView) findViewById(R.id.textCall);
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
-        Gson gson=new Gson();
 
         name=pref.getString("name", null);
         pw=pref.getInt("password", 0);
+        imageNum=pref.getInt("image", 0);
 
-        TextView textHi=(TextView) findViewById(R.id.textHi);
+        textHi=(TextView) findViewById(R.id.textHi);
         textHi.setText("안녕하세요 "+name+"님!");
+        setImage(imageNum);
+
+        mContext=this;
     }
 
     @Override
@@ -62,21 +74,19 @@ public class MainPage extends AppCompatActivity
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
 
+        name=pref.getString("name", null);
+        pw=pref.getInt("password", 0);
+        imageNum=pref.getInt("image", 0);
+
+        textHi.setText("안녕하세요 "+name+"님!");
+        setImage(imageNum);
+
         String myst=pref.getString("myStation", null);
         String homest=pref.getString("hometownStation", null);
         Type type=new TypeToken<ArrayList<String>>(){}.getType();
 
         ArrayList<String> myList=gson.fromJson(myst, type);
         ArrayList<String> homeList=gson.fromJson(homest, type);
-
-        for (int i=0; i<myList.size(); i++)
-        {
-            Log.d("check", myList.get(i));
-        }
-        for (int i=0; i<homeList.size(); i++)
-        {
-            Log.d("check", homeList.get(i));
-        }
 
         SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Date> days=new ArrayList<>();
@@ -180,10 +190,12 @@ public class MainPage extends AppCompatActivity
         {
             case 1:
                 Intent intent=new Intent(getApplicationContext(), StationOption.class);
-                startActivityForResult(intent, 2000);
+                startActivity(intent);
                 return true;
             case 2:
-                Toast.makeText(this, "회원 정보 수정 추가할 것~", Toast.LENGTH_SHORT).show();
+                Intent intCall=new Intent(getApplicationContext(), InfoOption.class);
+                startActivity(intCall);
+                //Toast.makeText(this, "회원 정보 수정 추가할 것~", Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -195,12 +207,23 @@ public class MainPage extends AppCompatActivity
         {
             case R.id.btnCal:
                 Intent intent1=new Intent(getApplicationContext(), MyCalendar.class);
-                startActivityForResult(intent1, 1001); // calendar: 1001
+                startActivity(intent1);
                 break;
             case R.id.btnKtx:
                 Intent intent2=new Intent(getApplicationContext(), KTXInformation.class);
-                startActivityForResult(intent2, 1002); // ktx: 1002
+                startActivity(intent2);
                 break;
+            case R.id.btnCall:
+                Intent intent3=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01026351931"));
+                startActivity(intent3);
         }
+    }
+
+    public void setImage(int p)
+    {
+        final int image[]={R.drawable.parent, R.drawable.dad, R.drawable.mom, R.drawable.grandpa, R.drawable.grandma};
+
+        ImageView imageView=(ImageView) findViewById(R.id.image);
+        imageView.setImageResource(image[p]);
     }
 }

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\f6a183f8595ca34f3d5cc99d1f8bc322\appcompat-1.0.2\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\8392647ca9531c13a8f0d6b7ad086e7e\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
 MERGED from [com.prolificinteractive:material-calendarview:1.4.3] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\a4a71a03dcb7cc20b9e0e786b33f6560\jetified-material-calendarview-1.4.3\AndroidManifest.xml:2:1-14:12
@@ -35,20 +35,20 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sayqu\.gradle\ca
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\420f294924962582b4c42c622af43461\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\66e997bde0b6ece28f7fd36f5f4a1584\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\8787729f29cf7add1bc29c81caccddfd\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
-INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
 	package
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-27:12
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:1-28:12
 		INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:2:11-69
@@ -57,7 +57,7 @@ ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:5:5-67
 	android:name
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:5:22-64
 application
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:7:5-25:19
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:7:5-26:19
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\8392647ca9531c13a8f0d6b7ad086e7e\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\8392647ca9531c13a8f0d6b7ad086e7e\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
 MERGED from [com.prolificinteractive:material-calendarview:1.4.3] C:\Users\sayqu\.gradle\caches\transforms-2\files-2.1\a4a71a03dcb7cc20b9e0e786b33f6560\jetified-material-calendarview-1.4.3\AndroidManifest.xml:12:5-20
@@ -80,36 +80,40 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\sa
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:8:9-35
 	android:theme
 		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
+activity#com.example.letsgohome.InfoOption
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
+	android:name
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
 activity#com.example.letsgohome.StationOption
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-60
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-51
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-48
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-48
 activity#com.example.letsgohome.calendar.MyCalendar
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-57
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-57
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-54
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-54
 activity#com.example.letsgohome.MainPage
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-46
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-46
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-43
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:17:19-43
 activity#com.example.letsgohome.ktx.KTXInformation
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-56
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:18:9-56
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:17:19-53
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:18:19-53
 activity#com.example.letsgohome.MainActivity
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:18:9-24:20
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:19:9-25:20
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:18:19-47
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:19:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:19:13-23:29
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:20:13-24:29
 action#android.intent.action.MAIN
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:20:17-69
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:21:17-69
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:20:25-66
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:21:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:22:17-77
+ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:23:17-77
 	android:name
-		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:22:27-74
+		ADDED from D:\Android\Project\app\src\main\AndroidManifest.xml:23:27-74
 uses-sdk
 INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Android\Project\app\src\main\AndroidManifest.xml

@@ -145,7 +145,4 @@
             android:choiceMode="singleChoice"
             android:orientation="vertical"/>
     </LinearLayout>
-
-
-
 </LinearLayout>

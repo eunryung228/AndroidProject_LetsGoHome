@@ -15,7 +15,7 @@
 11-->D:\Android\Project\app\src\main\AndroidManifest.xml:5:22-64
 12
 13    <application
-13-->D:\Android\Project\app\src\main\AndroidManifest.xml:7:5-25:19
+13-->D:\Android\Project\app\src\main\AndroidManifest.xml:7:5-26:19
 14        android:allowBackup="true"
 14-->D:\Android\Project\app\src\main\AndroidManifest.xml:8:9-35
 15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -32,32 +32,35 @@
 21        android:testOnly="true"
 22        android:theme="@style/AppTheme" >
 22-->D:\Android\Project\app\src\main\AndroidManifest.xml:13:9-40
-23        <activity android:name="com.example.letsgohome.StationOption" />
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-60
-23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-48
-24        <activity android:name="com.example.letsgohome.calendar.MyCalendar" />
-24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-57
-24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-54
-25        <activity android:name="com.example.letsgohome.MainPage" />
-25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-46
-25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-43
-26        <activity android:name="com.example.letsgohome.ktx.KTXInformation" />
-26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-56
-26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:19-53
-27        <activity android:name="com.example.letsgohome.MainActivity" >
-27-->D:\Android\Project\app\src\main\AndroidManifest.xml:18:9-24:20
-27-->D:\Android\Project\app\src\main\AndroidManifest.xml:18:19-47
-28            <intent-filter>
-28-->D:\Android\Project\app\src\main\AndroidManifest.xml:19:13-23:29
-29                <action android:name="android.intent.action.MAIN" />
-29-->D:\Android\Project\app\src\main\AndroidManifest.xml:20:17-69
-29-->D:\Android\Project\app\src\main\AndroidManifest.xml:20:25-66
-30
-31                <category android:name="android.intent.category.LAUNCHER" />
-31-->D:\Android\Project\app\src\main\AndroidManifest.xml:22:17-77
-31-->D:\Android\Project\app\src\main\AndroidManifest.xml:22:27-74
-32            </intent-filter>
-33        </activity>
-34    </application>
-35
-36</manifest>
+23        <activity android:name="com.example.letsgohome.InfoOption" />
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:9-57
+23-->D:\Android\Project\app\src\main\AndroidManifest.xml:14:19-45
+24        <activity android:name="com.example.letsgohome.StationOption" />
+24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:9-51
+24-->D:\Android\Project\app\src\main\AndroidManifest.xml:15:19-48
+25        <activity android:name="com.example.letsgohome.calendar.MyCalendar" />
+25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:9-57
+25-->D:\Android\Project\app\src\main\AndroidManifest.xml:16:19-54
+26        <activity android:name="com.example.letsgohome.MainPage" />
+26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:9-46
+26-->D:\Android\Project\app\src\main\AndroidManifest.xml:17:19-43
+27        <activity android:name="com.example.letsgohome.ktx.KTXInformation" />
+27-->D:\Android\Project\app\src\main\AndroidManifest.xml:18:9-56
+27-->D:\Android\Project\app\src\main\AndroidManifest.xml:18:19-53
+28        <activity android:name="com.example.letsgohome.MainActivity" >
+28-->D:\Android\Project\app\src\main\AndroidManifest.xml:19:9-25:20
+28-->D:\Android\Project\app\src\main\AndroidManifest.xml:19:19-47
+29            <intent-filter>
+29-->D:\Android\Project\app\src\main\AndroidManifest.xml:20:13-24:29
+30                <action android:name="android.intent.action.MAIN" />
+30-->D:\Android\Project\app\src\main\AndroidManifest.xml:21:17-69
+30-->D:\Android\Project\app\src\main\AndroidManifest.xml:21:25-66
+31
+32                <category android:name="android.intent.category.LAUNCHER" />
+32-->D:\Android\Project\app\src\main\AndroidManifest.xml:23:17-77
+32-->D:\Android\Project\app\src\main\AndroidManifest.xml:23:27-74
+33            </intent-filter>
+34        </activity>
+35    </application>
+36
+37</manifest>

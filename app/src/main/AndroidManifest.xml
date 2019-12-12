@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StationOption"></activity>
+        <activity android:name=".InfoOption"></activity>
+        <activity android:name=".StationOption" />
         <activity android:name=".calendar.MyCalendar" />
         <activity android:name=".MainPage" />
         <activity android:name=".ktx.KTXInformation" />

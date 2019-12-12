@@ -155,7 +155,7 @@ public class KTXInformation extends AppCompatActivity
         switch(v.getId())
         {
             case R.id.btnResult:
-                new Thread(new Runnable() {
+                new Thread(new Runnable(){
                     @Override
                     public void run()
                     {

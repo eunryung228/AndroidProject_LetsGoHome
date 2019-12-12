@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF2E6"
+    tools:context=".InfoOption">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/maplestorybold"
+        android:text="회원 정보 수정"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFCFC"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/maplestorylight"
+                android:text="닉네임:  "
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:fontFamily="@font/maplestorylight"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btnName"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="#FFD3B0"
+                android:fontFamily="@font/maplestorylight"
+                android:onClick="mOnClick"
+                android:text="변경"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/maplestorylight"
+                android:text="비밀번호:  "
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:fontFamily="@font/maplestorylight"
+                android:hint="숫자 4자리"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btnPassword"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="#FFD3B0"
+                android:fontFamily="@font/maplestorylight"
+                android:onClick="mOnClick"
+                android:text="변경"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/maplestorylight"
+                android:text="이미지 변경"
+                android:textSize="15dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:checkedButton="@id/radioParent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioParent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="부모님" />
+
+                <RadioButton
+                    android:id="@+id/radioDad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="아빠" />
+
+                <RadioButton
+                    android:id="@+id/radioMom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="엄마" />
+
+                <RadioButton
+                    android:id="@+id/radioGrandpa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="할아버지" />
+
+                <RadioButton
+                    android:id="@+id/radioGrandma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="할머니" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/maplestorylight"
+                android:text="패스워드 사용  "
+                android:textSize="15dp" />
+
+            <Switch
+                android:id="@+id/switchPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/maplestorylight"
+                android:text="통화 시스템 사용  "
+                android:textSize="15dp" />
+
+            <Switch
+                android:id="@+id/switchCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:background="#FFFCFC"
+        android:orientation="horizontal">
+    </FrameLayout>
+</LinearLayout>

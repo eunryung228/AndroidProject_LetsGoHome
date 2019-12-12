@@ -814,6 +814,7 @@ public class MainActivity extends AppCompatActivity
 
                     editor.putString("name", name.getText().toString());
                     editor.putInt("password", Integer.parseInt(pw.getText().toString()));
+                    editor.putInt("image", 0);
 
                     String myst=gson.toJson(myAdapter.getList());
                     editor.putString("myStation", myst);
@@ -828,7 +829,7 @@ public class MainActivity extends AppCompatActivity
                     editor.apply();
 
                     Intent intent=new Intent(getApplicationContext(), MainPage.class);
-                    startActivityForResult(intent, 1000); // main code 1000
+                    startActivity(intent);
                 }
                 break;
         }

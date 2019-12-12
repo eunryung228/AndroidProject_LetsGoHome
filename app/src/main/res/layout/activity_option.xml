@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFF2E6"
-    tools:context=".MainActivity">
+    tools:context=".StationOption">
 
     <TextView
         android:layout_margin="10dp"
