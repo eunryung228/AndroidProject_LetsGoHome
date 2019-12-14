@@ -2,14 +2,17 @@ package com.example.letsgohome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Debug;
 import android.preference.PreferenceManager;
+import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -32,8 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private int myRegion, myStation, hometownRegion, hometownStation;
     ListViewAdapter myAdapter, hometownAdapter;
     ListView listView1, listView2;
@@ -49,353 +51,286 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("memFile", MODE_PRIVATE);
 
-        String checkName=pref.getString("name", null);
+        String checkName = pref.getString("name", null);
 
-        if(checkName!=null)
-        {
-            Toast.makeText(this, checkName+"님 반갑습니다! 자동로그인 되었습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(getApplicationContext(), MainPage.class);
+        if (checkName != null) {
+            Toast.makeText(this, checkName + "님 반갑습니다! 자동로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainPage.class);
             startActivityForResult(intent, 1000); // main code 1000
             finish();
         }
 
-        DBHelper dbHelper=new DBHelper(this);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        DBHelper dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         dbHelper.resetDB(db); // 새로 앱 실행할 때마다 db reset (debugging 용, 제출 시 꼭 지울 것)
 
-        name=(EditText) findViewById(R.id.name);
-        pw=(EditText) findViewById(R.id.password);
+        name = (EditText) findViewById(R.id.name);
+        pw = (EditText) findViewById(R.id.password);
 
-        myAdapter=new ListViewAdapter();
-        hometownAdapter=new ListViewAdapter();
+        myAdapter = new ListViewAdapter();
+        hometownAdapter = new ListViewAdapter();
 
-        listView1=(ListView) findViewById(R.id.myStations);
-        listView2=(ListView) findViewById(R.id.hometownStations);
+        listView1 = (ListView) findViewById(R.id.myStations);
+        listView2 = (ListView) findViewById(R.id.hometownStations);
 
         listView1.setAdapter(myAdapter);
         listView2.setAdapter(hometownAdapter);
 
-        homeSpin1=(Spinner) findViewById(R.id.home1);
-        homeSpin2=(Spinner) findViewById(R.id.home2);
-        hometownSpin1=(Spinner) findViewById(R.id.hometown1);
-        hometownSpin2=(Spinner) findViewById(R.id.hometown2);
+        homeSpin1 = (Spinner) findViewById(R.id.home1);
+        homeSpin2 = (Spinner) findViewById(R.id.home2);
+        hometownSpin1 = (Spinner) findViewById(R.id.hometown1);
+        hometownSpin2 = (Spinner) findViewById(R.id.hometown2);
 
-        adhome1=ArrayAdapter.createFromResource(this, R.array.region, R.layout.support_simple_spinner_dropdown_item);
+        adhome1 = ArrayAdapter.createFromResource(this, R.array.region, R.layout.support_simple_spinner_dropdown_item);
         adhome1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         homeSpin1.setAdapter(adhome1);
-        homeSpin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        homeSpin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-            {
-                if(homeSpin1.getItemAtPosition(p).equals("서울특별시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.seoul, R.layout.support_simple_spinner_dropdown_item);
+            public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                if (homeSpin1.getItemAtPosition(p).equals("서울특별시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.seoul, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("세종특별시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.sejong, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("세종특별시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.sejong, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("부산광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.busan, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("부산광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.busan, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("대구광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.daegu, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("대구광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.daegu, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("인천광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.incheon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("인천광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.incheon, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("광주광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gwangju, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("광주광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gwangju, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("대전광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.daejeon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("대전광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.daejeon, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("울산광역시"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.ulsan, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("울산광역시")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.ulsan, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("경기도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeonggi, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("경기도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeonggi, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("강원도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gangwon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("강원도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gangwon, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("충청북도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.chungbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("충청북도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.chungbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("충청남도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.chungnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("충청남도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.chungnam, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("전라북도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("전라북도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("전라남도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("전라남도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonnam, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("경상북도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("경상북도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(homeSpin1.getItemAtPosition(p).equals("경상남도"))
-                {
-                    myRegion=p;
-                    adhome2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (homeSpin1.getItemAtPosition(p).equals("경상남도")) {
+                    myRegion = p;
+                    adhome2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongnam, R.layout.support_simple_spinner_dropdown_item);
                     adhome2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     homeSpin2.setAdapter(adhome2);
-                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    homeSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            myStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            myStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
                 }
@@ -407,319 +342,255 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        adhometown1=ArrayAdapter.createFromResource(this, R.array.region, R.layout.support_simple_spinner_dropdown_item);
+        adhometown1 = ArrayAdapter.createFromResource(this, R.array.region, R.layout.support_simple_spinner_dropdown_item);
         adhometown1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         hometownSpin1.setAdapter(adhometown1);
-        hometownSpin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        hometownSpin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-            {
-                if(hometownSpin1.getItemAtPosition(p).equals("서울특별시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.seoul, R.layout.support_simple_spinner_dropdown_item);
+            public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                if (hometownSpin1.getItemAtPosition(p).equals("서울특별시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.seoul, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("세종특별시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.sejong, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("세종특별시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.sejong, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("부산광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.busan, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("부산광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.busan, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("대구광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.daegu, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("대구광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.daegu, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("인천광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.incheon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("인천광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.incheon, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("광주광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gwangju, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("광주광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gwangju, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("대전광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.daejeon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("대전광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.daejeon, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("울산광역시"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.ulsan, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("울산광역시")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.ulsan, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("경기도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeonggi, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("경기도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeonggi, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("강원도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gangwon, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("강원도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gangwon, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("충청북도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.chungbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("충청북도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.chungbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("충청남도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.chungnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("충청남도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.chungnam, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("전라북도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("전라북도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("전라남도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("전라남도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.jeonnam, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("경상북도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongbuk, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("경상북도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongbuk, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-                }
-                else if(hometownSpin1.getItemAtPosition(p).equals("경상남도"))
-                {
-                    hometownRegion=p;
-                    adhometown2=ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongnam, R.layout.support_simple_spinner_dropdown_item);
+                } else if (hometownSpin1.getItemAtPosition(p).equals("경상남도")) {
+                    hometownRegion = p;
+                    adhometown2 = ArrayAdapter.createFromResource(MainActivity.this, R.array.gyeongnam, R.layout.support_simple_spinner_dropdown_item);
                     adhometown2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     hometownSpin2.setAdapter(adhometown2);
-                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-                    {
+                    hometownSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id)
-                        {
-                            hometownStation=p;
+                        public void onItemSelected(AdapterView<?> parent, View view, int p, long id) {
+                            hometownStation = p;
                         }
+
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent)
-                        {
+                        public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -816,6 +687,15 @@ public class MainActivity extends AppCompatActivity
                     editor.putInt("password", Integer.parseInt(pw.getText().toString()));
                     editor.putInt("image", 0);
 
+                    ArrayList<String> newList=new ArrayList<>();
+                    newList.add(""); newList.add("");
+                    String newStr=gson.toJson(newList);
+                    editor.putString("callNameList", newStr);
+                    editor.putString("callPhoneList", newStr);
+
+                    editor.putBoolean("usePassword", false);
+                    editor.putBoolean("useCall", false);
+
                     String myst=gson.toJson(myAdapter.getList());
                     editor.putString("myStation", myst);
                     String htst=gson.toJson(hometownAdapter.getList());
@@ -825,7 +705,6 @@ public class MainActivity extends AppCompatActivity
                     String htregion=gson.toJson(hometownAdapter.getRegionList());
                     editor.putString("myRegion", myregion);
                     editor.putString("hometownRegion", htregion);
-
                     editor.apply();
 
                     Intent intent=new Intent(getApplicationContext(), MainPage.class);

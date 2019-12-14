@@ -1,19 +1,30 @@
 package com.example.letsgohome;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +39,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.Manifest.permission.READ_CALL_LOG;
+
 public class MainPage extends AppCompatActivity
 {
     String name;
     int pw;
     int imageNum;
+    boolean usePassword=false;
     boolean useCall=false;
+
+    ArrayList<String> phoneList=new ArrayList<>();
+    ArrayList<String> nameList=new ArrayList<>();
 
     TextView textHi;
     TextView textMeet;
     TextView textNextMeet;
     TextView textCall;
+    ImageButton btnOption;
 
     public static Context mContext;
 
@@ -49,6 +67,7 @@ public class MainPage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        btnOption=(ImageButton) findViewById(R.id.btnOption);
         textMeet=(TextView) findViewById(R.id.textMeet);
         textNextMeet=(TextView) findViewById(R.id.textNextMeet);
         textCall=(TextView) findViewById(R.id.textCall);
@@ -73,17 +92,45 @@ public class MainPage extends AppCompatActivity
 
         SharedPreferences pref=getSharedPreferences("memFile", MODE_PRIVATE);
         Gson gson=new Gson();
+        Type type=new TypeToken<ArrayList<String>>(){}.getType();
 
         name=pref.getString("name", null);
         pw=pref.getInt("password", 0);
         imageNum=pref.getInt("image", 0);
+        useCall=pref.getBoolean("useCall", false);
+
+
+        int permissionCheck= ContextCompat.checkSelfPermission(getApplicationContext(), READ_CALL_LOG);
+
+        if(permissionCheck==PackageManager.PERMISSION_DENIED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]
+                    { READ_CALL_LOG }, 200 );
+        }
+
+        if(useCall)
+        {
+            String callPhones=pref.getString("callPhoneList", null);
+            String callNames=pref.getString("callNameList", null);
+            nameList=gson.fromJson(callNames, type);
+            phoneList=gson.fromJson(callPhones, type);
+
+            textCall.setVisibility(View.VISIBLE);
+            Date lastDay=loadCallLog(phoneList.get(0), phoneList.get(1));
+
+            Date today=new Date();
+            long diff=today.getTime()-lastDay.getTime();
+            long lastCall=diff/(24*60*60*1000)+1;
+            textCall.setText("· 전화를 못 한 지 어느덧 "+String.valueOf(lastCall)+"일");
+        }
+        else
+            textCall.setVisibility(View.INVISIBLE);
 
         textHi.setText("안녕하세요 "+name+"님!");
         setImage(imageNum);
 
         String myst=pref.getString("myStation", null);
         String homest=pref.getString("hometownStation", null);
-        Type type=new TypeToken<ArrayList<String>>(){}.getType();
 
         ArrayList<String> myList=gson.fromJson(myst, type);
         ArrayList<String> homeList=gson.fromJson(homest, type);
@@ -175,31 +222,32 @@ public class MainPage extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        menu.add(Menu.NONE, 1, Menu.NONE, "역 정보 수정");
-        menu.add(Menu.NONE, 2, Menu.NONE, "회원 정보 수정");
-        return super.onCreateOptionsMenu(menu);
+    public void optionMenuClick(View v) {
+        PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+        getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                switch (item.getItemId())
+                {
+                    case R.id.menu1:
+                        Intent intent = new Intent(getApplicationContext(), StationOption.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.menu2:
+                        Intent intCall = new Intent(getApplicationContext(), InfoOption.class);
+                        startActivity(intCall);
+                        return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case 1:
-                Intent intent=new Intent(getApplicationContext(), StationOption.class);
-                startActivity(intent);
-                return true;
-            case 2:
-                Intent intCall=new Intent(getApplicationContext(), InfoOption.class);
-                startActivity(intCall);
-                //Toast.makeText(this, "회원 정보 수정 추가할 것~", Toast.LENGTH_SHORT).show();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void mOnClick(View v)
     {
@@ -214,8 +262,26 @@ public class MainPage extends AppCompatActivity
                 startActivity(intent2);
                 break;
             case R.id.btnCall:
-                Intent intent3=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01026351931"));
-                startActivity(intent3);
+                if(useCall)
+                {
+                    final CharSequence[] nameItems={nameList.get(0), nameList.get(1)};
+                    AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                    builder.setTitle("누구에게 전화를 하실건가요?");
+                    builder.setItems(nameItems, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            Intent intent=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phoneList.get(which)));
+                            startActivity(intent);
+                        }
+                    });
+                    AlertDialog callDialog=builder.create();
+                    callDialog.show();
+                }
+                else
+                    Toast.makeText(this, "통화 시스템 OFF 상태입니다.", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -225,5 +291,33 @@ public class MainPage extends AppCompatActivity
 
         ImageView imageView=(ImageView) findViewById(R.id.image);
         imageView.setImageResource(image[p]);
+    }
+
+    private Date loadCallLog(String ph1, String ph2)
+    {
+        if (checkSelfPermission(READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED)
+        {
+            Toast.makeText(this, "통화 목록 접근 권한이 없습니다.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        Date result=new Date();
+        Cursor cursor = getBaseContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, "DATE DESC");
+        if(cursor.getCount()>0)
+        {
+            while (cursor.moveToNext())
+            {
+                int type=cursor.getInt(cursor.getColumnIndex(CallLog.Calls.TYPE));
+                String num=cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));
+                long datems=cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DATE));
+                Date date=new Date(Long.valueOf(datems));
+                if(num.equals(ph1) || num.equals(ph2))
+                {
+                    result=date;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

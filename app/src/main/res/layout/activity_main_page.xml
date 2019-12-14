@@ -8,14 +8,30 @@
     android:background="#FFF2E6"
     tools:context=".MainPage">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:fontFamily="@font/maplestorybold"
-        android:text="렛츠고 홈"
-        android:textSize="24dp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/maplestorybold"
+            android:text="렛츠고 홈"
+            android:textSize="24dp" />
+
+        <ImageButton
+            android:id="@+id/btnOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:background="#FFF2E6"
+            android:paddingRight="10dp"
+            android:onClick="optionMenuClick"
+            app:srcCompat="@drawable/option" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="6dp"
                 app:srcCompat="@drawable/parent" />
 
             <TextView
@@ -79,7 +95,7 @@
                 android:fontFamily="@font/maplestorylight"
                 android:textSize="12dp"
                 android:textColor="#000000"
-                android:text="· 전화를 못 한 지 어느덧 60일"/>
+                android:text="· 전화를 못 한 지 어느덧 2일"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -155,7 +171,7 @@
                 android:gravity="center_horizontal"
                 android:fontFamily="@font/maplestorylight"
                 android:textSize="12dp"
-                android:text="ktx 조회" />
+                android:text="열차 조회" />
 
             <TextView
                 android:layout_width="wrap_content"

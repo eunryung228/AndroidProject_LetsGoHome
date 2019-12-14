@@ -166,16 +166,24 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEnd"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="15dp"
-        android:background="#FFD3B0"
-        android:fontFamily="@font/maplestorylight"
-        android:onClick="mOnClick"
-        android:text="입력 완료"
-        android:textSize="12dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:background="#FFFCFC"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEnd"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFD3B0"
+            android:fontFamily="@font/maplestorylight"
+            android:onClick="mOnClick"
+            android:text="입력 완료"
+            android:textSize="12dp" />
+    </FrameLayout>
 </LinearLayout>

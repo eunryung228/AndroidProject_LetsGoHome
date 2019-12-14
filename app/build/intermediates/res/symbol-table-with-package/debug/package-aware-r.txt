@@ -709,6 +709,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable option
 drawable parent
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -755,6 +756,8 @@ id beginning
 id blocking
 id bottom
 id btnAdd
+id btnAddPhone1
+id btnAddPhone2
 id btnBack
 id btnCal
 id btnCall
@@ -762,10 +765,16 @@ id btnDelete
 id btnEnd
 id btnKtx
 id btnName
+id btnOption
 id btnPassword
 id btnResult
 id buttonPanel
+id cName1
+id cName2
+id cPhone1
+id cPhone2
 id calendar
+id callLayout
 id cancel_action
 id center
 id center_horizontal
@@ -827,6 +836,8 @@ id list_item
 id match_parent
 id mcv_pager
 id media_actions
+id menu1
+id menu2
 id message
 id middle
 id monday
@@ -989,6 +1000,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu option_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 string abc_action_bar_home_description
@@ -1197,6 +1209,7 @@ style Base_Widget_AppCompat_Spinner_Underlined
 style Base_Widget_AppCompat_TextView_SpinnerItem
 style Base_Widget_AppCompat_Toolbar
 style Base_Widget_AppCompat_Toolbar_Button_Navigation
+style MenuText
 style Platform_AppCompat
 style Platform_AppCompat_Light
 style Platform_ThemeOverlay_AppCompat

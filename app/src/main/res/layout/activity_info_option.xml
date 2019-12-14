@@ -204,6 +204,106 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/callLayout"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:paddingLeft="15dp"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="전화번호 1"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/btnAddPhone1"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="#FFD3B0"
+                    android:fontFamily="@font/maplestorylight"
+                    android:onClick="mAddPhoneNumbers"
+                    android:text="선택"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/cName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text=""
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/cPhone1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text=""
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:paddingLeft="15dp"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text="전화번호 2"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/btnAddPhone2"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="#FFD3B0"
+                    android:fontFamily="@font/maplestorylight"
+                    android:onClick="mAddPhoneNumbers"
+                    android:text="선택"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/cName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text=""
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/cPhone2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/maplestorylight"
+                    android:text=""
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
