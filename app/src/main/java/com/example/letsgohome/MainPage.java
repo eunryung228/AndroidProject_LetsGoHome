@@ -46,7 +46,6 @@ public class MainPage extends AppCompatActivity
     String name;
     int pw;
     int imageNum;
-    boolean usePassword=false;
     boolean useCall=false;
 
     ArrayList<String> phoneList=new ArrayList<>();
@@ -99,15 +98,6 @@ public class MainPage extends AppCompatActivity
         imageNum=pref.getInt("image", 0);
         useCall=pref.getBoolean("useCall", false);
 
-
-        int permissionCheck= ContextCompat.checkSelfPermission(getApplicationContext(), READ_CALL_LOG);
-
-        if(permissionCheck==PackageManager.PERMISSION_DENIED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]
-                    { READ_CALL_LOG }, 200 );
-        }
-
         if(useCall)
         {
             String callPhones=pref.getString("callPhoneList", null);
@@ -156,7 +146,6 @@ public class MainPage extends AppCompatActivity
             e.printStackTrace();
         }
         db.close();
-        Log.d("db", "--------------------------");
 
 
         Date today=new Date();

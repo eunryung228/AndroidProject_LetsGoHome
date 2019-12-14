@@ -185,7 +185,7 @@ public class KTXInformation extends AppCompatActivity
                                         @Override
                                         public void run() {
                                             // TODO Auto-generated method stub
-                                            if(data=="")
+                                            if(data.equals(""))
                                             {
                                                 Toast.makeText(KTXInformation.this, "열차 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                                                 return;

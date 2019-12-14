@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         String checkName = pref.getString("name", null);
 
-        if (checkName != null) {
+        if (checkName != null)
+        {
             Toast.makeText(this, checkName + "님 반갑습니다! 자동로그인 되었습니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainPage.class);
             startActivityForResult(intent, 1000); // main code 1000
@@ -68,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        dbHelper.resetDB(db); // 새로 앱 실행할 때마다 db reset (debugging 용, 제출 시 꼭 지울 것)
 
         name = (EditText) findViewById(R.id.name);
         pw = (EditText) findViewById(R.id.password);
@@ -340,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
 
         adhometown1 = ArrayAdapter.createFromResource(this, R.array.region, R.layout.support_simple_spinner_dropdown_item);
         adhometown1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -616,14 +616,11 @@ public class MainActivity extends AppCompatActivity {
                     boolean isIn=false;
                     if(hometownAdapter.getList().contains(stName))
                         isIn=true;
-
                     if(!isIn)
                     {
                         if(!myAdapter.addItem(homeSpin1.getItemAtPosition(myRegion).toString(),
                                 stName))
-                        {
                             Toast.makeText(this, "3개 이상 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                        }
                     }
                     else
                         Toast.makeText(this, "고향 역에 추가된 역은 추가할 수 없습니다.", Toast.LENGTH_SHORT).show();

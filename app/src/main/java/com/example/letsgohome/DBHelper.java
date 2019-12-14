@@ -74,7 +74,6 @@ public class DBHelper extends SQLiteOpenHelper
             sb.append("ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
             sb.append("DATE DATE )");
             db.execSQL(sb.toString());
-            Log.d("db", "make calendar db");
         }
         catch (SQLiteException e)
         {
